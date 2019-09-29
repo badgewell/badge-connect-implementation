@@ -1,2 +1,2 @@
-# badges-connect-implementation
+# badge-connect-implementation
 Badge Connect Implementation in Nodejs by Badgewell Team
