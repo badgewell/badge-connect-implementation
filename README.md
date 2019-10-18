@@ -1,5 +1,5 @@
 # badge-connect-implementation
-Badge Connect (Open Badges 2.1) Implementation in Nodejs. Badge Connect specfication draft can be found here https://github.com/IMSGlobal/openbadges-specification.
+Badge Connect (Open Badges 2.1) Implementation in Nodejs. Badge Connect specfication draft can be found here https://github.com/IMSGlobal/openbadges-specification/tree/develop/ob_v2p1.
 
 ## Proposed Flow
 > A user that did collect badges on a badges platform and wants to import them to a recruitment site profile. The mockups can be found here https://xd.adobe.com/view/ed32a103-13dd-4f6a-4075-5e0a44b12acf-9b03/.
