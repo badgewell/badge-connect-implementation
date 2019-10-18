@@ -3,9 +3,9 @@ Badge Connect (Open Badges 2.1) Implementation in Nodejs.Badge Connect specficat
 
 ## Proposed Flow
 > A user that did collect badges on a badges platform and wants to import them to a recruitment site profile. The mockups can be found here https://xd.adobe.com/view/ed32a103-13dd-4f6a-4075-5e0a44b12acf-9b03/
-- The User will open his profile on the recruitment platform  and click on connect button.
-- The User will be asked to log in into the badging platfrom and authrize the recruitment site.
-- The User will then redirected by to the recruitment site and see his badges already imported.
+- The user will open his profile on the recruitment platform  and click on connect button.
+- The user will be asked to log in into the badging platfrom and authrize the recruitment site.
+- The user will then redirected by to the recruitment site and see his badges already imported.
 
 
 ## Contents
