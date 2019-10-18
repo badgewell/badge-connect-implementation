@@ -17,4 +17,4 @@ Badge Connect (Open Badges 2.1) Implementation in Nodejs. Badge Connect specfica
 
 
 ## About 
- This Project is inspired by Badge Connect Refrence Implentation and is maintined by Badgewell an IMS Memeber and Open Badges 2.0 certfied product.
+ This Project is inspired by Badge Connect Refrence Implentation and is maintined by Badgewell an IMS Global Memeber and Open Badges 2.0 certfied product.
