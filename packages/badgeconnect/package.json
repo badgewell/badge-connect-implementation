@@ -1,0 +1,15 @@
+{
+  "name": "@badgewell/badgeconnect",
+  "version": "1.0.0",
+  "description": "The Badgewell badge connect library provides convenient way to implement the Badge Connect standard  APIs in applications written in server-side JavaScript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4"
+  }
+}
