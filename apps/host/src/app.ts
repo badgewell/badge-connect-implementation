@@ -1,4 +1,9 @@
+
+import * as dotenv from 'dotenv';
+dotenv.config({ path: '.env' });
+
 import * as bodyParser from 'body-parser';
+
 import express from 'express';
 
 import router from './routes';
@@ -28,7 +33,7 @@ class App {
             res.header('Access-Control-Allow-Credentials', 'true');
             next();
         });
-        this.app.use('/host', router);
+        this.app.use(router);
     }
 
 }
