@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { IManifestResponse } from '../types/manifest';
+import { IManifestResponse } from '../types/manifest.type';
 
 // TODO Add an API for each end point
 

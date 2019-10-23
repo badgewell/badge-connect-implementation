@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import * as manifest from './controllers/manifest';
+import * as manifest from './controllers/manifest.controller';
 
 const router = express.Router();
 
