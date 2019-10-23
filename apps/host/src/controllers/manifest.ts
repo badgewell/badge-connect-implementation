@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { IManifestResponse } from '../types/manifest';
 
 // TODO Add an API for each end point
 
@@ -47,5 +48,5 @@ export const wellKnown = (req: Request, res: Response) => {
         version: BADGE_CONNECT_VERSION,
       },
     ],
-  });
+  } as IManifestResponse);
 };
