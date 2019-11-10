@@ -4,7 +4,8 @@
   "description": "This is a nodejs implementation of oauth 2.0 server for use for badgeconnect",
   "main": "index.js",
   "scripts": {
-    "build":"tsc",
+    "build": "tsc",
+    "generate-keys":"ts-node generate-keys ",
     "start": "node dist/server.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,green.bold\"  \"npm run watch-ts\" \"npm run watch-node\"",
     "watch-node": "nodemon dist/server.js",
@@ -26,6 +27,12 @@
     "typescript": "^3.6.4"
   },
   "dependencies": {
-    "express": "^4.17.1"
-  }
+    "express": "^4.17.1",
+    "mongoose": "^5.7.7",
+    "jose": "^1.10.1",
+    "lowdb": "^1.0.0",
+    "oidc-provider": "^6.12.13"
+  },
+  "engines" : { "node" : ">=12.0.0" } 
+
 }
