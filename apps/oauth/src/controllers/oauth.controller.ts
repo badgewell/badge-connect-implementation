@@ -1,14 +1,18 @@
 import assert from 'assert';
 import Provider from 'oidc-provider';
-
+import {readJson} from '../utils/readJson';
 import { Account } from './../services/account.service';
 
-process.env.PORT = '3000';
+let jsonKeys ;
+readJson('./jwks.json').then((obj) => jsonKeys =  obj)
+.catch((error) => console.error(error));
+
+// simple account model for this application, user list is defined like so
+import { JSONWebKeySet } from 'jose';
+
 process.env.SECURE_KEY =
   'asupersecretpasswordthatnoonecanguess,anotherpassowrdthatismuchstorgerthantthefirstone';
 
-assert(process.env.PORT, 'process.env.PORT missing');
-// assert(process.env.HEROKU_APP_NAME, 'process.env.HEROKU_APP_NAME missing');
 assert(
   process.env.SECURE_KEY,
   'process.env.SECURE_KEY missing, run `heroku addons:create securekey`',
@@ -19,12 +23,7 @@ assert.equal(
   'process.env.SECURE_KEY format invalid',
 );
 
-// tslint:disable-next-line: no-var-requires
-const jwks = require('./../../jwks.json');
-
-// simple account model for this application, user list is defined like so
-
-const oidc = new Provider(`http://localhost:3000`, {
+const oidc = new Provider(`http://localhost:5000`, {
   // adapter: the adapter to use later on ,
   clients: [
     {
@@ -35,7 +34,7 @@ const oidc = new Provider(`http://localhost:3000`, {
       token_endpoint_auth_method: 'none',
     },
   ],
-  jwks,
+  jwks: jsonKeys as JSONWebKeySet,
 
   // oidc-provider only looks up the accounts by their ID when it has to read the claims,
   features: {
@@ -75,7 +74,7 @@ const oidc = new Provider(`http://localhost:3000`, {
       return `/interaction/${ctx.oidc.uid}`;
     },
   },
-  // the routes defined by the library
+//   the routes defined by the library
   routes: {
     authorization: '/authorization',
     check_session: '/session/check',

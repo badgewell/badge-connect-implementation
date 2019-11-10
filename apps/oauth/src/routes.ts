@@ -13,7 +13,7 @@ function setNoCache(req, res, next) {
 }
 
 router.get('/health', (req, res) => {
-  res.status(200).send();
+    res.status(200).send('OK');
 });
 
 router.get('/interaction/:uid', setNoCache, oauthController.startInteraction);
@@ -22,8 +22,6 @@ router.post('/interaction/:uid/confirm', setNoCache, parse, oauthController.conf
 
 router.get('/interaction/:uid/abort', setNoCache, oauthController.abort);
 
-// leave the rest of the requests to be handled by oidc-provider, there's a catch all 404 there
-router.use(oauthController.callback);
 
 // the following are set from the oidc library in the controller service
 // registration API
