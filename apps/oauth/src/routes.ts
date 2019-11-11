@@ -18,10 +18,11 @@ router.get('/health', (req, res) => {
 
 router.get('/interaction/:uid', setNoCache, oauthController.startInteraction);
 
+router.post('/interaction/:uid/login', setNoCache, parse, oauthController.login );
+
 router.post('/interaction/:uid/confirm', setNoCache, parse, oauthController.confirm);
 
 router.get('/interaction/:uid/abort', setNoCache, oauthController.abort);
-
 
 // the following are set from the oidc library in the controller service
 // registration API

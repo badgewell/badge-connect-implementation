@@ -1,3 +1,4 @@
+// TODO add env variables for both JWKS and views folder
 
 import * as bodyParser from 'body-parser';
 
@@ -22,7 +23,7 @@ class App {
     // let's work with express here, below is just the interaction definition
     this.app.set('trust proxy', true);
     this.app.set('view engine', 'ejs');
-    this.app.set('views', path.resolve(__dirname, 'views'));
+    this.app.set('views', path.resolve(__dirname, './../views'));
     //
     this.app.use((req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');

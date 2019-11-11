@@ -133,6 +133,40 @@ export const startInteraction = async (req, res, next) => {
   }
 };
 
+export const login = async (req, res, next) => {
+  try {
+    const { uid, prompt, params } = await oidc.interactionDetails(req, res);
+    const client = await oidc.Client.find(params.client_id);
+
+    const accountId = await Account.authenticate(req.body.email, req.body.password);
+
+    if (!accountId) {
+      res.render('login', {
+        client,
+        uid,
+        details: prompt.details,
+        params: {
+          ...params,
+          login_hint: req.body.email,
+        },
+        title: 'Sign-in',
+        flash: 'Invalid email or password.',
+      });
+      return;
+    }
+
+    const result = {
+      login: {
+        account: accountId,
+      },
+    };
+
+    await oidc.interactionFinished(req, res, result, { mergeWithLastSubmission: false });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const confirm = async (req, res, next) => {
   try {
     const result = {
@@ -141,6 +175,7 @@ export const confirm = async (req, res, next) => {
         // rejectedClaims: [], // < uncomment and add rejections here
       },
     };
+    console.log('add the ');
     await oidc.interactionFinished(req, res, result, {
       mergeWithLastSubmission: true,
     });
