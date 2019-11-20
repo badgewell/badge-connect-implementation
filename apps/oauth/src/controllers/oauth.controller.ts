@@ -1,5 +1,6 @@
 import assert from 'assert';
 import Provider from 'oidc-provider';
+import MongoAdapter from '../adapters/mongodb';
 import {readJson} from '../utils/readJson';
 import { Account } from './../services/account.service';
 
@@ -24,7 +25,7 @@ assert.equal(
 );
 
 const oidc = new Provider(`http://localhost:5000`, {
-  // adapter: the adapter to use later on ,
+  adapter: MongoAdapter, // the adapter to use later on ,
   clients: [
     {
       client_id: 'foo',
@@ -35,13 +36,14 @@ const oidc = new Provider(`http://localhost:5000`, {
     },
   ],
   jwks: jsonKeys as JSONWebKeySet,
-
   // oidc-provider only looks up the accounts by their ID when it has to read the claims,
+  // tslint:disable-next-line:object-literal-sort-keys
   features: {
     // disable the packaged interactions
     devInteractions: { enabled: false },
-
     introspection: { enabled: true },
+    registration: { enabled: true },
+    registrationManagement: { enabled: true },
     revocation: { enabled: true },
   },
   // passing it our Account model method is sufficient, it should return a Promise that resolves
@@ -143,8 +145,9 @@ export const login = async (req, res, next) => {
     if (!accountId) {
       res.render('login', {
         client,
-        uid,
         details: prompt.details,
+        uid,
+          // tslint:disable-next-line:object-literal-sort-keys
         params: {
           ...params,
           login_hint: req.body.email,
