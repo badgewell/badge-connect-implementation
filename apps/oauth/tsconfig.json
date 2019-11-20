@@ -2,7 +2,9 @@
     "compilerOptions": {
       "module": "commonjs",
       "esModuleInterop": true,
-      "target": "es6",
+      "declaration": false,
+      "target": "es2017",
+      "allowJs": true,
       "moduleResolution": "node",
       "sourceMap": true,
       "outDir": "dist"
