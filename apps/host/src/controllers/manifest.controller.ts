@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { IManifestResponse } from '../types/manifest.type';
+import { IManifestResponse, scope } from '../types/manifest.type';
 
 // TODO Add an API for each end point
 
@@ -18,7 +18,7 @@ const {
 } = process.env;
 
 export const wellKnown = (req: Request, res: Response) => {
-  const scopes =  [
+  const scopes: scope[] =  [
     'openid',
     'profile',
     'https://purl.imsglobal.org/spec/ob/v2p1/scope/assertion.readonly',
@@ -30,14 +30,11 @@ export const wellKnown = (req: Request, res: Response) => {
   const { host  } = req.headers;
   const {protocol} = req;
   res.json({
-    id: `${protocol}://${host}/.well-known/badgeconnect.json`,
-    type: 'Manifest',
     badgeConnectAPI: [
       {
-        id: `${protocol}://${host}/.well-known/badgeconnect.json`,
-        type: 'BadgeConnectAPI',
         apiBase: API_BASE,
         authorizationUrl: AUTHORIZATION_URL,
+        id: `${protocol}://${host}/.well-known/badgeconnect.json`,
         image: LOGO_URL,
         name: NAME,
         privacyPolicyUrl: PRIVACY_POLICY_URL,
@@ -45,8 +42,11 @@ export const wellKnown = (req: Request, res: Response) => {
         scopesOffered: scopes ,
         termsOfServiceUrl: TERMS_OF_SERVICE_URL,
         tokenUrl: AUTHORIZATION_TOKEN_URL,
+        type: 'BadgeConnectAPI',
         version: BADGE_CONNECT_VERSION,
       },
     ],
+    id: `${protocol}://${host}/.well-known/badgeconnect.json`,
+    type: 'Manifest',
   } as IManifestResponse);
 };
