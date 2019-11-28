@@ -1,6 +1,6 @@
 import chaiServer from 'chai';
 import chaiHttp from 'chai-http';
-import server from '../../dist/server';
+import server from '../server';
 const { expect } = chaiServer;
 
 chaiServer.use(chaiHttp);
@@ -25,4 +25,3 @@ describe('test /.well-known/badgeconnect.json ', () => {
                 });
         });
     });
-
