@@ -10,7 +10,8 @@
     "object-literal-key-quotes": false,
     "ordered-imports": false,
     "arrow-parens": false,
-    "member-ordering": false
+    "member-ordering": false,
+    "no-string-literal": false
   },
   "rulesDirectory": []
 }

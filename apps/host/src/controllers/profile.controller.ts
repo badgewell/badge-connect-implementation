@@ -3,6 +3,7 @@ import flatten from 'flat';
 
 import Profile from '../models/profile.model';
 import { IProfile } from '../types/profile.type';
+import { IRequest } from '../utils/verifyToken';
 
 export interface IProfileResponse {
   status: { error: Error; statusCode: number; statusText: string };
@@ -128,9 +129,9 @@ export async function createProfile(req: Request, res: Response) {
   }
 }
 
-export async function findProfile(req: Request, res: Response) {
+export async function findProfile(req: IRequest, res: Response) {
   try {
-    const { id } = req.params;
+    const { id } = req.authUser;
 
     const profile = await Profile.findById(
       id,
