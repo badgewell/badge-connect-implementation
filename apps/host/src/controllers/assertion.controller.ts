@@ -217,7 +217,7 @@ export function validateCreateAssertion(
   next();
 }
 
-export async function createAssertion(req, res) {
+export async function createAssertion(req: Request, res: Response) {
   try {
     const assertion = new Assertion({
       ...flatten(req.body)
@@ -233,11 +233,17 @@ export async function createAssertion(req, res) {
       }
     });
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send({
+      status: {
+        error: error.message,
+        statusCode: 400,
+        statusText: 'BAD_REQUEST'
+      }
+    });
   }
 }
 
-export async function findAssertions(req, res, next) {
+export async function findAssertions(req: Request, res: Response) {
   try {
     const offset = +req.query.offset || 0;
     const limit = +req.query.limit || 10;
@@ -283,6 +289,12 @@ export async function findAssertions(req, res, next) {
 
     return res.status(200).send(response);
   } catch (err) {
-    next(err);
+    res.status(400).send({
+      status: {
+        error: err.message,
+        statusCode: 400,
+        statusText: 'BAD_REQUEST'
+      }
+    });
   }
 }
