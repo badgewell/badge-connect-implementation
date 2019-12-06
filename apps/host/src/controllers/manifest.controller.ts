@@ -38,7 +38,7 @@ export const wellKnown = (req: Request, res: Response) => {
         image: LOGO_URL,
         name: NAME,
         privacyPolicyUrl: PRIVACY_POLICY_URL,
-        registrationUrl: REGISTRATION_URL,
+        registration_endpoint: REGISTRATION_URL,
         scopesOffered: scopes ,
         termsOfServiceUrl: TERMS_OF_SERVICE_URL,
         tokenUrl: AUTHORIZATION_TOKEN_URL,

@@ -2,7 +2,7 @@
   "name": "@badgewell/badgeconnect-host",
   "version": "0.1.0",
   "description": "This is a nodejs implementation of a host server for badgeconnect",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
