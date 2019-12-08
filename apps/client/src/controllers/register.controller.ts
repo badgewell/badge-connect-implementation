@@ -1,44 +1,42 @@
-import {response} from 'express';
-import fetch from 'node-fetch';
-import {saveDB} from '../utils/mongo';
+import { saveDB } from '../utils/mongo';
+import { Request } from 'express';
+const { Issuer, generators } = require('openid-client');
 
-export const saveWellKnown = async (req , res , next) => {
-    const result = await fetch(req.query.URL);
-    const data = await result.json();
-    await saveDB(data , 'wellknown');
-    next();
-};
+export const register = async (req: Request, res, next) => {
+  // tslint:disable-next-line:object-literal-sort-keys
 
-export const register = async (req , res , next) => {
-    // tslint:disable-next-line:object-literal-sort-keys
-  const result = await fetch('http://localhost:5000/registration' ,
-      {method: 'POST',
-      // tslint:disable-next-line:object-literal-sort-keys
-      body:
-              JSON.stringify({
-                  client_name: 'Badge Issuer',
-                  client_uri: 'https://about.badgewell.com',
-                  logo_uri: 'https://about.badgewell.com',
-                  tos_uri: 'https://about.badgewell.com',
-                  // tslint:disable-next-line:object-literal-sort-keys
-                  policy_uri: 'https://about.badgewell.com',
-                  software_id: '13dcdc83-fc0d-4c8d-9159-6461da297388',
-                  software_version: '54dfc83-fc0d-4c8d-9159-6461da297388',
-                  redirect_uris: [
-                      'https://about.badgewell.com',
-                  ],
-                  token_endpoint_auth_method: 'client_secret_basic',
-                  grant_types: [
-                      'authorization_code',
-                      'refresh_token', 'implicit',
-                  ],
-                  response_types: [
-                      'id_token',
-                  ],
-                  scope: 'openid profile https://purl.imsglobal.org/spec/ob/v2p1/scope/assertion.readonly',
-              }),
-              headers: { 'Content-Type': 'application/json' },
-            });
-  const data = await result.json();
-  await saveDB(data , 'clients');
+  const { url, uid } = req.query;
+  const issuer = await Issuer.discover(url);
+  issuer.registration_endpoint = issuer.badgeConnectAPI[0].registrationUrl;
+  issuer.authorization_endpoint = issuer.badgeConnectAPI[0].authorizationUrl;
+  issuer.token_endpoint = issuer.badgeConnectAPI[0].tokenUrl;
+
+  const { insertedId } = await saveDB(issuer, 'wellKnows');
+  const redirect_uri = `http://${req.headers.host}/callback/${insertedId}`;
+  console.log(redirect_uri);
+
+  const client = await issuer.Client.register({
+    redirect_uris: [redirect_uri],
+    application_type: 'native',
+    token_endpoint_auth_method: 'client_secret_basic'
+  });
+
+  const code_verifier = 'davXRxc9zXNz6ZvdUL79ORSmXDEMe6TpM2AuL3bqz8t'; // generators.codeVerifier();
+  const code_challenge = generators.codeChallenge(code_verifier);
+  console.log(code_verifier, code_challenge, client.redirect_uris);
+
+  const authUrl = client.authorizationUrl({
+    redirect_uri,
+    code_challenge,
+    code_challenge_method: 'S256',
+    scope:
+      'openid https://purl.imsglobal.org/spec/ob/v2p1/scope/assertion.readonly'
+  });
+
+  const cl = await Promise.all([
+    saveDB({ ...client, _id: insertedId }, 'clients')
+  ]);
+
+  res.json({ authUrl });
+  //   await saveDB(data , 'clients');
 };

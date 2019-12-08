@@ -12,7 +12,7 @@ server.once('listening', () => {
     console.log(issuer);
     issuer.registration_endpoint = 'http://localhost:5000/registration';
     issuer.authorization_endpoint = 'http://localhost:5000/authorization';
-    //issuer.token_endpoint = 'http://localhost:5000/token'
+    issuer.token_endpoint = 'http://localhost:5000/token'
     // console.log(issuer.authorizationUrl);
     // console.log(issuer.registrationUrl);
 
