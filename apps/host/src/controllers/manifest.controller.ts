@@ -14,21 +14,21 @@ const {
   REGISTRATION_URL,
   TERMS_OF_SERVICE_URL,
   AUTHORIZATION_TOKEN_URL,
-  BADGE_CONNECT_VERSION,
+  BADGE_CONNECT_VERSION
 } = process.env;
 
 export const wellKnown = (req: Request, res: Response) => {
-  const scopes: scope[] =  [
+  const scopes: scope[] = [
     'openid',
     'profile',
     'https://purl.imsglobal.org/spec/ob/v2p1/scope/assertion.readonly',
     'https://purl.imsglobal.org/spec/ob/v2p1/scope/assertion.create',
     'https://purl.imsglobal.org/spec/ob/v2p1/scope/profile.readonly',
     'https://purl.imsglobal.org/spec/ob/v2p1/scope/profile.update',
-    'offline_access',
+    'offline_access'
   ];
-  const { host  } = req.headers;
-  const {protocol} = req;
+  const { host } = req.headers;
+  const { protocol } = req;
   res.json({
     badgeConnectAPI: [
       {
@@ -39,14 +39,14 @@ export const wellKnown = (req: Request, res: Response) => {
         name: NAME,
         privacyPolicyUrl: PRIVACY_POLICY_URL,
         registration_endpoint: REGISTRATION_URL,
-        scopesOffered: scopes ,
+        registrationUrl: REGISTRATION_URL,
         termsOfServiceUrl: TERMS_OF_SERVICE_URL,
         tokenUrl: AUTHORIZATION_TOKEN_URL,
         type: 'BadgeConnectAPI',
-        version: BADGE_CONNECT_VERSION,
-      },
+        version: BADGE_CONNECT_VERSION
+      }
     ],
     id: `${protocol}://${host}/.well-known/badgeconnect.json`,
-    type: 'Manifest',
+    type: 'Manifest'
   } as IManifestResponse);
 };

@@ -18,6 +18,7 @@ export interface IManifestResponse {
   type: string;
   badgeConnectAPI: IBadgeConnectAPI[];
 }
+
 export type scope =
   | 'openid'
   | 'profile'
