@@ -1,4 +1,3 @@
-import {response} from 'express';
 import fetch from 'node-fetch';
 import {saveDB} from '../utils/mongo';
 
