@@ -6,7 +6,9 @@ export interface IBadgeConnectAPI {
   image: string;
   name: string;
   privacyPolicyUrl: string;
-  registration_endpoint: string;
+  registrationUrl: string;
+  registration_endpoint?: string;
+  authorization_endpoint?: string;
   scopesOffered: string[];
   termsOfServiceUrl: string;
   tokenUrl: string;

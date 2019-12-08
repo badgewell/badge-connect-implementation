@@ -6,6 +6,6 @@ const router = express.Router();
 router.get('/health', (req, res) => {
     res.status(200).send('Done');
 });
-router.get('/reg' , registerController.register);
+router.get('/register' , registerController.register);
 
 export default router;

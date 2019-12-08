@@ -9,8 +9,6 @@ const { ISSUER = 'http://localhost:4000/.well-known/badgeconnect.json' } = proce
 server.once('listening', () => {
   (async () => {
     const issuer = await Issuer.discover(ISSUER);
-    const { address, port } = server.address();
-    const hostname = address === '::' ? '[::1]' : address;
     console.log(issuer);
     issuer.registration_endpoint = 'http://localhost:5000/registration';
     issuer.authorization_endpoint = 'http://localhost:5000/authorization';
