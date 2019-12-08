@@ -35,6 +35,13 @@ const oidc = new Provider(`http://localhost:5000`, {
       token_endpoint_auth_method: 'none',
     },
   ],
+  // tslint:disable-next-line:object-literal-sort-keys
+  clientDefaults: {
+    grant_types: ['authorization_code',
+      'refresh_token'],
+    response_types: ['code'],
+    token_endpoint_auth_method: 'client_secret_basic',
+    },
   jwks: jsonKeys as JSONWebKeySet,
   // oidc-provider only looks up the accounts by their ID when it has to read the claims,
   // tslint:disable-next-line:object-literal-sort-keys
@@ -42,7 +49,7 @@ const oidc = new Provider(`http://localhost:5000`, {
     // disable the packaged interactions
     devInteractions: { enabled: false },
     introspection: { enabled: true },
-    registration: { enabled: true },
+    registration: { enabled: true ,  },
     registrationManagement: { enabled: true },
     revocation: { enabled: true },
   },
