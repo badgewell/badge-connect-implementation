@@ -3,13 +3,13 @@ import Provider from 'oidc-provider';
 import MongoAdapter from '../adapters/mongodb';
 import { Account } from './../services/account.service';
 
+// TODO turn the following into environment variables
+// TODO add jsonWebKeys as a string in environment variables
+
 process.env.SECURE_KEY =
   'asupersecretpasswordthatnoonecanguess,anotherpassowrdthatismuchstorgerthantthefirstone';
 
-assert(
-  process.env.SECURE_KEY,
-  'process.env.SECURE_KEY missing, run `heroku addons:create securekey`'
-);
+assert(process.env.SECURE_KEY, 'process.env.SECURE_KEY missing');
 assert.equal(
   process.env.SECURE_KEY.split(',').length,
   2,
@@ -18,7 +18,6 @@ assert.equal(
 
 const oidc = new Provider(`http://localhost:4000`, {
   adapter: MongoAdapter, // the adapter to use later on ,
-  // tslint:disable-next-line:object-literal-sort-keys
   clientDefaults: {
     grant_types: ['authorization_code', 'refresh_token'],
     response_types: ['code'],
@@ -29,7 +28,6 @@ const oidc = new Provider(`http://localhost:4000`, {
   // oidc-provider only looks up the accounts by their ID when it has to read the claims,
   // tslint:disable-next-line:object-literal-sort-keys
   features: {
-    // disable the packaged interactions
     devInteractions: { enabled: false },
     introspection: { enabled: true },
     registration: { enabled: true },
@@ -93,7 +91,7 @@ export const startInteraction = async (req, res, next) => {
     // tslint:disable-next-line: no-console
     const details = await oidc.interactionDetails(req, res);
     console.log(
-      'see what else is available to you for interaction viewsm',
+      'see what else is available to you for interaction views',
       details
     );
     const { uid, prompt, params } = details;
@@ -139,7 +137,6 @@ export const login = async (req, res, next) => {
         client,
         details: prompt.details,
         uid,
-        // tslint:disable-next-line:object-literal-sort-keys
         params: {
           ...params,
           login_hint: req.body.email
