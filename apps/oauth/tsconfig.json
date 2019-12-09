@@ -2,15 +2,13 @@
     "compilerOptions": {
       "module": "commonjs",
       "esModuleInterop": true,
-      "declaration": false,
-      "target": "es2017",
-      "allowJs": true,
+      "target": "es6",
       "moduleResolution": "node",
       "sourceMap": true,
       "outDir": "dist"
     },
     "lib": ["es2015"],
     "include": [
-      "src/**/*", "src/spec",
+      "src", "src/spec",
     ]
   }
