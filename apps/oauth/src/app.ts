@@ -1,4 +1,4 @@
-// TODO add env variables for both JWKS and views folder
+// TODO Add env variables for both JWKS and views folder
 
 import * as bodyParser from 'body-parser';
 
