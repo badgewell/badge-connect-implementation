@@ -17,12 +17,12 @@ export const callback = async (req, res, next) => {
 
   const issuer = await Issuer.discover(wellKnownMetadata.badgeConnectAPI[0].id);
 
-  issuer.registration_endpoint = issuer.badgeConnectAPI[0].registrationUrl;
-  issuer.authorization_endpoint = issuer.badgeConnectAPI[0].authorizationUrl;
-  issuer.token_endpoint = issuer.badgeConnectAPI[0].tokenUrl;
-  issuer.issuer = 'http://localhost:5000';
-  issuer.jwks_uri = 'http://localhost:5000/jwks';
-  issuer.userinfo_endpoint = 'http://localhost:5000/me';
+  // issuer.registration_endpoint = issuer.badgeConnectAPI[0].registrationUrl;
+  // issuer.authorization_endpoint = issuer.badgeConnectAPI[0].authorizationUrl;
+  // issuer.token_endpoint = issuer.badgeConnectAPI[0].tokenUrl;
+  // issuer.issuer = 'http://localhost:5000';
+  // issuer.jwks_uri = 'http://localhost:5000/jwks';
+  // issuer.userinfo_endpoint = 'http://localhost:5000/me';
 
 
   const client = new issuer.Client(clientMetadata);

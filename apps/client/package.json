@@ -2,7 +2,7 @@
   "name": "@badgewell/badgeconnect-example-client",
   "version": "0.1.0",
   "description": "This is an example nodejs  client ( Relay Party ) for badgeconnect ",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",

@@ -14,7 +14,9 @@ const {
   REGISTRATION_URL,
   TERMS_OF_SERVICE_URL,
   AUTHORIZATION_TOKEN_URL,
-  BADGE_CONNECT_VERSION
+  BADGE_CONNECT_VERSION,
+  JWKS_URL,
+  USER_INFO_URL
 } = process.env;
 
 export const wellKnown = (req: Request, res: Response) => {
@@ -46,6 +48,12 @@ export const wellKnown = (req: Request, res: Response) => {
         scopesOffered: scopes
       }
     ],
+    jwks_uri: JWKS_URL,
+    userinfo_endpoint: USER_INFO_URL,
+    token_endpoint: AUTHORIZATION_TOKEN_URL,
+    authorization_endpoint: AUTHORIZATION_URL,
+    registration_endpoint: REGISTRATION_URL,
+    issuer: `http://${req.headers.host}`,
     id: `${protocol}://${host}/.well-known/badgeconnect.json`,
     type: 'Manifest'
   } as IManifestResponse);
