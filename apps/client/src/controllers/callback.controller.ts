@@ -1,8 +1,8 @@
-import { saveDB, getById } from '../utils/mongo';
-const { Issuer, Client, generators } = require('openid-client');
+import { getById } from '../utils/mongo';
+const { Issuer } = require('openid-client');
 
 export const callback = async (req, res, next) => {
-  // client , uid
+  // uid
 
   const { id } = req.params;
 
@@ -13,8 +13,6 @@ export const callback = async (req, res, next) => {
     getById(id, 'clients')
   ]);
 
-  console.log(wellKnownMetadata, clientMetadata);
-
   // const { uid } = req.query;
 
   const issuer = await Issuer.discover(wellKnownMetadata.badgeConnectAPI[0].id);
@@ -22,29 +20,28 @@ export const callback = async (req, res, next) => {
   issuer.registration_endpoint = issuer.badgeConnectAPI[0].registrationUrl;
   issuer.authorization_endpoint = issuer.badgeConnectAPI[0].authorizationUrl;
   issuer.token_endpoint = issuer.badgeConnectAPI[0].tokenUrl;
+  issuer.issuer = 'http://localhost:5000';
+  issuer.jwks_uri = 'http://localhost:5000/jwks';
+  issuer.userinfo_endpoint = 'http://localhost:5000/me';
 
-  console.log(issuer.metadata);
 
   const client = new issuer.Client(clientMetadata);
 
   const code_verifier = 'davXRxc9zXNz6ZvdUL79ORSmXDEMe6TpM2AuL3bqz8t'; // generators.codeVerifier();
 
   const params = client.callbackParams(req);
-  console.log(params, clientMetadata.redirect_uris[0], redirect_uri);
 
   if (Object.keys(params).length) {
     const tokenSet = await client.callback(redirect_uri, params, {
-      code_verifier,
-      response_type: 'code'
+      code_verifier
+      // response_type: 'code'
     });
 
-    console.log('got', tokenSet);
+    console.log('got::::::', tokenSet);
     console.log('id token claims', tokenSet.claims());
 
     const userinfo = await client.userinfo(tokenSet);
     console.log('userinfo', userinfo);
-
-    res.end('you can close this now');
 
     res.json({ userinfo });
   }
