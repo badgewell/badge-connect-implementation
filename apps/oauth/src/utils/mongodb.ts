@@ -1,5 +1,18 @@
-import { client } from '../server';
+// not used now
 const ObjectId = require('mongodb').ObjectID;
+import { MongoClient } from 'mongodb';
+
+let client;
+(async () => {
+  try {
+    client = await MongoClient.connect(process.env.DATABASE_URL, {
+      useUnifiedTopology: true
+    });
+  } catch (e) {
+    // tslint:disable-next-line:no-console
+    console.log(e);
+  }
+})();
 
 export type collection =
   | 'wellKnows'
@@ -7,8 +20,8 @@ export type collection =
   | 'hostProfiles'
   | 'hostProfiles'
   | 'accessTokens'
-  | 'state'
-  | 'profiles';
+  | 'codeChallenges'
+  | 'state';
 /**
  * Save the object to the database
  *
@@ -50,7 +63,10 @@ export const getById = async (id, collection: collection) => {
  * @param {collection} collection
  * @returns
  */
-export const getOneWhere = async (condition: object, collection: collection) => {
+export const getOneWhere = async (
+  condition: object,
+  collection: collection
+) => {
   try {
     const db = client.db(process.env.DATABASE_NAME);
     return await db.collection(collection).findOne(condition);
