@@ -23,9 +23,10 @@ export const register = async (req: Request, res, next) => {
 
   const redirect_uri = `http://${req.headers.host}/callback/${id}`;
 
-  // TO DO report typing error
-  const Client: any = issuer.Client;
+  // TODO report typing error
+  const Client:any = issuer.Client;
 
+  // register the client 
   const client = await Client.register({
     ...issuer.metadata,
     redirect_uris: [redirect_uri],
