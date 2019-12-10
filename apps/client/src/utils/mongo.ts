@@ -50,7 +50,10 @@ export const getById = async (id, collection: collection) => {
  * @param {collection} collection
  * @returns
  */
-export const getOneWhere = async (condition: object, collection: collection) => {
+export const getOneWhere = async (
+  condition: object,
+  collection: collection
+) => {
   try {
     const db = client.db(process.env.DATABASE_NAME);
     return await db.collection(collection).findOne(condition);
@@ -71,10 +74,48 @@ export const getOneWhere = async (condition: object, collection: collection) => 
 export const getWhere = async (condition: object, collection: collection) => {
   try {
     const db = client.db(process.env.DATABASE_NAME);
-    return await db.collection(collection).find(condition);
+    return await db
+      .collection(collection)
+      .find(condition)
+      .toArray();
   } catch (err) {
     // tslint:disable-next-line:no-console
     console.error(err);
     throw new Error('can not write on the database');
+  }
+};
+/**
+ * Remove from the database based on the conditions
+ *
+ * @param {object} condition
+ * @param {collection} collection
+ * @returns
+ */
+const remove = async (condition: object, collection: collection) => {
+  try {
+    const db = client.db(process.env.DATABASE_NAME);
+    return await db.collection(collection).remove(condition);
+  } catch (err) {
+    // tslint:disable-next-line:no-console
+    console.error(err);
+    throw new Error('can not delete on the database');
+  }
+};
+
+/**
+ * Remove an item by Id
+ *
+ * @param {*} id
+ * @param {collection} collection
+ * @returns
+ */
+export const removeById = async (id, collection: collection) => {
+  try {
+    const db = client.db(process.env.DATABASE_NAME);
+    return await db.collection(collection).remove({ _id: new ObjectId(id) });
+  } catch (err) {
+    // tslint:disable-next-line:no-console
+    console.error(err);
+    throw new Error('can not get by id on the database');
   }
 };

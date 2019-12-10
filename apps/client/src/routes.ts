@@ -10,6 +10,7 @@ router.get('/health', (req, res) => {
 });
 router.post('/register', registerController.register);
 router.get('/callback/:id', callbackController.callback);
+router.get('/profile/:id', profileController.get);
 router.post('/profile', profileController.generate);
 
 export default router;
