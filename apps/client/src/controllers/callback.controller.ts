@@ -1,4 +1,4 @@
-import { getById, saveDB, getWhere } from '../utils/mongo';
+import { getById, saveDB, getOneWhere } from '../utils/mongo';
 import { Issuer } from 'openid-client';
 
 export const callback = async (req, res, next) => {
@@ -17,12 +17,10 @@ export const callback = async (req, res, next) => {
 
   const client = new issuer.Client(clientMetadata);
 
-  // TODO remove hard coded code_verifier
-
   // get the request params for use with the callback
   const params = client.callbackParams(req);
 
-  const { code_verifier, uid } = await getWhere(
+  const { code_verifier, uid } = await getOneWhere(
     { state: params.state },
     'state'
   );

@@ -4,7 +4,7 @@ import chaiServer from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../server';
 const { expect } = chaiServer;
-import * as mongodbConnector from '../utils/mongodbConnector';
+import * as mongodbConnector from '../utils/testMongodb';
 
 chaiServer.use(chaiHttp);
 
