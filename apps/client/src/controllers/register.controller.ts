@@ -35,6 +35,6 @@ export const register = async (req: Request, res, next) => {
   });
 
   await saveDB({ ...client, _id: insertedId }, 'clients');
-
+  
   res.json({ authUrl });
 };
