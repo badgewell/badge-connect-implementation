@@ -3,9 +3,10 @@ const { Issuer } = require('openid-client');
 
 export const callback = async (req, res, next) => {
   const { id } = req.params;
-  const { userUid } = req.query;
+  const { uid, code_challenge } = req.query;
 
-  const redirect_uri = `http://${req.headers.host}/callback/${id}?userUid=${userUid}`;
+  console.log('the code challenge', code_challenge);
+  const redirect_uri = `http://${req.headers.host}/callback/${id}?uid=${uid}`;
 
   // get both the client and wellKnown from the database
   const [wellKnownMetadata, clientMetadata] = await Promise.all([
@@ -13,16 +14,18 @@ export const callback = async (req, res, next) => {
     getById(id, 'clients')
   ]);
 
-  // reget the wellKnown manifest from the host
+  // get the wellKnown manifest from the host
   const issuer = await Issuer.discover(wellKnownMetadata.badgeConnectAPI[0].id);
 
   const client = new issuer.Client(clientMetadata);
 
   // TODO remove hard coded code_verifier
-  const code_verifier = 'davXRxc9zXNz6ZvdUL79ORSmXDEMe6TpM2AuL3bqz8t'; // generators.codeVerifier();
 
   // get the request params for use with the callback
   const params = client.callbackParams(req);
+
+  const code_verifier = await getById(code_challenge, 'codeChallenges');
+  console.log('this is the param', params, code_verifier);
 
   // get the access_token
   if (Object.keys(params).length) {
@@ -35,11 +38,10 @@ export const callback = async (req, res, next) => {
     const userinfo = await client.userinfo(tokenSet); // get user profile
 
     await Promise.all([
-      saveDB({ ...userinfo, _id: userUid }, 'hostProfiles'),
-      saveDB({ ...tokenSet, _id: userUid }, 'accessTokens')
+      saveDB({ ...userinfo, _id: uid }, 'hostProfiles'),
+      saveDB({ ...tokenSet, _id: uid }, 'accessTokens')
     ]);
 
-    // TODO get the awards using the accessToken
     await res.json({ userinfo });
   }
 };
