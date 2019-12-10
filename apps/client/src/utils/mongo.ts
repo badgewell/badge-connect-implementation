@@ -6,7 +6,8 @@ export type collection =
   | 'clients'
   | 'hostProfiles'
   | 'hostProfiles'
-  | 'accessTokens';
+  | 'accessTokens'
+  | 'profiles';
 /**
  * Save the object to the database
  *

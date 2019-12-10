@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as registerController from './controllers/register.controller';
-import {generateProfile} from './controllers/generateProfile';
+import * as profileController from './controllers/profile.controller';
 import * as callbackController from './controllers/callback.controller';
 
 const router = express.Router();
@@ -10,6 +10,6 @@ router.get('/health', (req, res) => {
 });
 router.post('/register', registerController.register);
 router.get('/callback/:id', callbackController.callback);
-router.post('/profile' , generateProfile);
+router.post('/profile', profileController.generate);
 
 export default router;
