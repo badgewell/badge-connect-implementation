@@ -24,7 +24,6 @@ export const callback = async (req, res, next) => {
     { state: params.state },
     'state'
   );
-  console.log('the coming state', params.state, code_verifier, uid);
 
   // get the access_token
   if (Object.keys(params).length) {
