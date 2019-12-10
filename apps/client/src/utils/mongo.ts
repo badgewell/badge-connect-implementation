@@ -74,7 +74,10 @@ export const getOneWhere = async (
 export const getWhere = async (condition: object, collection: collection) => {
   try {
     const db = client.db(process.env.DATABASE_NAME);
-    return await db.collection(collection).find(condition);
+    return await db
+      .collection(collection)
+      .find(condition)
+      .toArray();
   } catch (err) {
     // tslint:disable-next-line:no-console
     console.error(err);
