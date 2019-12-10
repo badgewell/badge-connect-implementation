@@ -13,7 +13,7 @@ export const callback = async (req, res, next) => {
   ]);
 
   // get the wellKnown manifest from the host
-  const issuer = await Issuer.discover(wellKnownMetadata.badgeConnectAPI[0].id);
+  const issuer = new Issuer(wellKnownMetadata);
 
   const client = new issuer.Client(clientMetadata);
 
