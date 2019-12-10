@@ -1,57 +1,38 @@
 import assert from 'assert';
 import Provider from 'oidc-provider';
 import MongoAdapter from '../adapters/mongodb';
-import {readJson} from '../utils/readJson';
 import { Account } from './../services/account.service';
 
-let jsonKeys ;
-readJson('./jwks.json').then((obj) => jsonKeys =  obj)
-.catch((error) => console.error(error));
-
-// simple account model for this application, user list is defined like so
-import { JSONWebKeySet } from 'jose';
+// TODO turn the following into environment variables
+// TODO add jsonWebKeys as a string in environment variables
 
 process.env.SECURE_KEY =
   'asupersecretpasswordthatnoonecanguess,anotherpassowrdthatismuchstorgerthantthefirstone';
 
-assert(
-  process.env.SECURE_KEY,
-  'process.env.SECURE_KEY missing, run `heroku addons:create securekey`',
-);
+assert(process.env.SECURE_KEY, 'process.env.SECURE_KEY missing');
 assert.equal(
   process.env.SECURE_KEY.split(',').length,
   2,
-  'process.env.SECURE_KEY format invalid',
+  'process.env.SECURE_KEY format invalid'
 );
 
-const oidc = new Provider(`http://localhost:5000`, {
+const oidc = new Provider(`http://localhost:4000`, {
   adapter: MongoAdapter, // the adapter to use later on ,
-  clients: [
-    {
-      client_id: 'foo',
-      grant_types: ['implicit'],
-      redirect_uris: ['https://about.badgewell.com'],
-      response_types: ['id_token'],
-      token_endpoint_auth_method: 'none',
-    },
-  ],
-  // tslint:disable-next-line:object-literal-sort-keys
   clientDefaults: {
-    grant_types: ['authorization_code',
-      'refresh_token'],
+    grant_types: ['authorization_code', 'refresh_token'],
     response_types: ['code'],
-    token_endpoint_auth_method: 'client_secret_basic',
-    },
-  jwks: jsonKeys as JSONWebKeySet,
+    token_endpoint_auth_method: 'client_secret_basic'
+  },
+  pkceMethods: ['S256'],
+
   // oidc-provider only looks up the accounts by their ID when it has to read the claims,
   // tslint:disable-next-line:object-literal-sort-keys
   features: {
-    // disable the packaged interactions
     devInteractions: { enabled: false },
     introspection: { enabled: true },
-    registration: { enabled: true ,  },
+    registration: { enabled: true },
     registrationManagement: { enabled: true },
-    revocation: { enabled: true },
+    revocation: { enabled: true }
   },
   // passing it our Account model method is sufficient, it should return a Promise that resolves
   // with an object with accountId property and a claims method.
@@ -61,7 +42,7 @@ const oidc = new Provider(`http://localhost:5000`, {
   // email_verified claims
   claims: {
     email: ['email', 'email_verified'],
-    openid: ['sub'],
+    openid: ['sub']
   },
   scopes: [
     'openid',
@@ -70,7 +51,7 @@ const oidc = new Provider(`http://localhost:5000`, {
     'https://purl.imsglobal.org/spec/ob/v2p1/scope/assertion.create',
     'https://purl.imsglobal.org/spec/ob/v2p1/scope/profile.readonly',
     'https://purl.imsglobal.org/spec/ob/v2p1/scope/profile.update',
-    'offline_access',
+    'offline_access'
   ],
 
   // let's tell oidc-provider where our own interactions will be
@@ -81,9 +62,9 @@ const oidc = new Provider(`http://localhost:5000`, {
   interactions: {
     url: async (ctx, interaction) => {
       return `/interaction/${ctx.oidc.uid}`;
-    },
+    }
   },
-//   the routes defined by the library
+  //   the routes defined by the library
   routes: {
     authorization: '/authorization',
     check_session: '/session/check',
@@ -96,8 +77,8 @@ const oidc = new Provider(`http://localhost:5000`, {
     registration: '/registration',
     revocation: '/token/revocation',
     token: '/token',
-    userinfo: '/me',
-  },
+    userinfo: '/me'
+  }
 });
 
 oidc.proxy = true;
@@ -108,15 +89,17 @@ export const callback = oidc.callback;
 export const startInteraction = async (req, res, next) => {
   try {
     // tslint:disable-next-line: no-console
-    console.log('here');
     const details = await oidc.interactionDetails(req, res);
     console.log(
       'see what else is available to you for interaction views',
-      details,
+      details
     );
     const { uid, prompt, params } = details;
 
     const client = await oidc.Client.find(params.client_id);
+
+    console.log(params);
+
 
     if (prompt.name === 'login') {
       return res.render('login', {
@@ -125,7 +108,7 @@ export const startInteraction = async (req, res, next) => {
         flash: undefined,
         params,
         title: 'Sign-in',
-        uid,
+        uid
       });
     }
 
@@ -134,7 +117,7 @@ export const startInteraction = async (req, res, next) => {
       details: prompt.details,
       params,
       title: 'Authorize',
-      uid,
+      uid
     });
   } catch (err) {
     console.error(err);
@@ -146,32 +129,38 @@ export const login = async (req, res, next) => {
   try {
     const { uid, prompt, params } = await oidc.interactionDetails(req, res);
     const client = await oidc.Client.find(params.client_id);
+    console.log(params);
 
-    const accountId = await Account.authenticate(req.body.email, req.body.password);
+
+    const accountId = await Account.authenticate(
+      req.body.email,
+      req.body.password
+    );
 
     if (!accountId) {
       res.render('login', {
         client,
         details: prompt.details,
         uid,
-          // tslint:disable-next-line:object-literal-sort-keys
         params: {
           ...params,
-          login_hint: req.body.email,
+          login_hint: req.body.email
         },
         title: 'Sign-in',
-        flash: 'Invalid email or password.',
+        flash: 'Invalid email or password.'
       });
       return;
     }
 
     const result = {
       login: {
-        account: accountId,
-      },
+        account: accountId
+      }
     };
 
-    await oidc.interactionFinished(req, res, result, { mergeWithLastSubmission: false });
+    await oidc.interactionFinished(req, res, result, {
+      mergeWithLastSubmission: false
+    });
   } catch (err) {
     next(err);
   }
@@ -183,11 +172,10 @@ export const confirm = async (req, res, next) => {
       consent: {
         // rejectedScopes: [], // < uncomment and add rejections here
         // rejectedClaims: [], // < uncomment and add rejections here
-      },
+      }
     };
-    console.log('add the ');
     await oidc.interactionFinished(req, res, result, {
-      mergeWithLastSubmission: true,
+      mergeWithLastSubmission: true
     });
   } catch (err) {
     next(err);
@@ -197,10 +185,10 @@ export const abort = async (req, res, next) => {
   try {
     const result = {
       error: 'access_denied',
-      error_description: 'End-User aborted interaction',
+      error_description: 'End-User aborted interaction'
     };
     await oidc.interactionFinished(req, res, result, {
-      mergeWithLastSubmission: false,
+      mergeWithLastSubmission: false
     });
   } catch (err) {
     next(err);

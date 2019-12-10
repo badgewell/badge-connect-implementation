@@ -1,8 +1,8 @@
 {
   "name": "@badgewell/badgeconnect-oauth",
   "version": "0.1.0",
-  "description": "This is a nodejs implementation of oauth 2.0 server for use for badgeconnect",
-  "main": "index.js",
+  "description": "This is a nodejs implementation of oauth 2.0 server for use for badgeconnect requires nodejs over 12.0.0",
+  "main": "server.js",
   "scripts": {
     "build": "tsc",
     "generate-keys": "ts-node generate-keys ",
