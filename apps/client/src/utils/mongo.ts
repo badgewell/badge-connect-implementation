@@ -40,6 +40,17 @@ export const getById = async (id, collection: collection) => {
   } catch (err) {
     // tslint:disable-next-line:no-console
     console.error(err);
+    throw new Error('can not get by id on the database');
+  }
+};
+
+export const getWhere = async (condition: object, collection: collection) => {
+  try {
+    const db = client.db(process.env.DATABASE_NAME);
+    return await db.collection(collection).findOne(condition);
+  } catch (err) {
+    // tslint:disable-next-line:no-console
+    console.error(err);
     throw new Error('can not write on the database');
   }
 };

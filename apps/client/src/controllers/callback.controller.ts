@@ -1,12 +1,10 @@
-import { getById, saveDB } from '../utils/mongo';
-const { Issuer } = require('openid-client');
+import { getById, saveDB, getWhere } from '../utils/mongo';
+import { Issuer } from 'openid-client';
 
 export const callback = async (req, res, next) => {
   const { id } = req.params;
-  const { uid, code_challenge } = req.query;
 
-  console.log('the code challenge', code_challenge);
-  const redirect_uri = `http://${req.headers.host}/callback/${id}?uid=${uid}`;
+  const redirect_uri = `http://${req.headers.host}/callback/${id}`;
 
   // get both the client and wellKnown from the database
   const [wellKnownMetadata, clientMetadata] = await Promise.all([
@@ -24,13 +22,17 @@ export const callback = async (req, res, next) => {
   // get the request params for use with the callback
   const params = client.callbackParams(req);
 
-  const code_verifier = await getById(code_challenge, 'codeChallenges');
-  console.log('this is the param', params, code_verifier);
+  const { code_verifier, uid } = await getWhere(
+    { state: params.state },
+    'state'
+  );
+  console.log('the coming state', params.state, code_verifier, uid);
 
   // get the access_token
   if (Object.keys(params).length) {
     const tokenSet = await client.callback(redirect_uri, params, {
       code_verifier,
+      state: params.state,
       response_type: 'code'
     });
 
@@ -38,8 +40,8 @@ export const callback = async (req, res, next) => {
     const userinfo = await client.userinfo(tokenSet); // get user profile
 
     await Promise.all([
-      saveDB({ ...userinfo, _id: uid }, 'hostProfiles'),
-      saveDB({ ...tokenSet, _id: uid }, 'accessTokens')
+      saveDB({ ...userinfo, uid, clientInternalId: id }, 'hostProfiles'),
+      saveDB({ ...tokenSet, clientInternalId: id }, 'accessTokens')
     ]);
 
     await res.json({ userinfo });

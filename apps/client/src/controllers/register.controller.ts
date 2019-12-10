@@ -1,6 +1,6 @@
 import { saveDB } from '../utils/mongo';
 import { Request } from 'express';
-const { Issuer, generators } = require('openid-client');
+import { Issuer, generators, Client as IClient } from 'openid-client';
 
 export const register = async (req: Request, res, next) => {
   // tslint:disable-next-line:object-literal-sort-keys
@@ -8,23 +8,26 @@ export const register = async (req: Request, res, next) => {
   const { url, uid } = req.query;
 
   // generate the code challenge
-  // TODO use the generators instead of hard coding the code_verifier
-  const code_verifier = generators.codeVerifier(); // 'davXRxc9zXNz6ZvdUL79ORSmXDEMe6TpM2AuL3bqz8t'; //;
+  const code_verifier = generators.codeVerifier();
+  const state = generators.state();
   const code_challenge = generators.codeChallenge(code_verifier);
 
   // get the wellKnown from the host
   const issuer = await Issuer.discover(url);
 
   // generate the state and internal id for the host
-  const [{ insertedId: id }, { insertedId: state }] = await Promise.all([
+  const [{ insertedId: id }] = await Promise.all([
     saveDB(issuer, 'wellKnows'),
-    saveDB({ code_verifier, code_challenge, uid }, 'codeChallenges')
+    saveDB({ code_verifier, code_challenge, uid, state }, 'state')
   ]);
 
-  const redirect_uri = `http://${req.headers.host}/callback/${id}?uid=${uid}`;
+  const redirect_uri = `http://${req.headers.host}/callback/${id}`;
 
-  // register a new client for this host
-  const client = await issuer.Client.register({
+  // TO DO report typing error
+  const Client: any = issuer.Client;
+
+  const client = await Client.register({
+    ...issuer.metadata,
     redirect_uris: [redirect_uri],
     application_type: 'web',
     token_endpoint_auth_method: 'client_secret_basic'
