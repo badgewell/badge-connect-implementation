@@ -1,7 +1,19 @@
 import { client } from '../server';
 const ObjectId = require('mongodb').ObjectID;
 
-export type collection = 'wellKnows' | 'clients' | 'userinfo';
+export type collection =
+  | 'wellKnows'
+  | 'clients'
+  | 'hostProfiles'
+  | 'hostProfiles'
+  | 'accessTokens';
+/**
+ * Save the object to the database
+ *
+ * @param {*} data
+ * @param {collection} collection name
+ * @returns
+ */
 export const saveDB = async (data, collection: collection) => {
   try {
     const db = client.db(process.env.DATABASE_NAME);
@@ -12,7 +24,13 @@ export const saveDB = async (data, collection: collection) => {
     throw new Error('can not write on the database');
   }
 };
-
+/**
+ * Get the item by Id
+ *
+ * @param {*} id
+ * @param {collection} collection
+ * @returns
+ */
 export const getById = async (id, collection: collection) => {
   try {
     const db = client.db(process.env.DATABASE_NAME);

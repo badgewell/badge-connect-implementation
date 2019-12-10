@@ -98,6 +98,9 @@ export const startInteraction = async (req, res, next) => {
 
     const client = await oidc.Client.find(params.client_id);
 
+    console.log(params);
+
+
     if (prompt.name === 'login') {
       return res.render('login', {
         client,
@@ -126,6 +129,8 @@ export const login = async (req, res, next) => {
   try {
     const { uid, prompt, params } = await oidc.interactionDetails(req, res);
     const client = await oidc.Client.find(params.client_id);
+    console.log(params);
+
 
     const accountId = await Account.authenticate(
       req.body.email,

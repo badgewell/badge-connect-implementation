@@ -5,27 +5,27 @@ const { Issuer, generators } = require('openid-client');
 export const register = async (req: Request, res, next) => {
   // tslint:disable-next-line:object-literal-sort-keys
 
-  const { url, uid } = req.query;
+  const { url, userUid } = req.query; 
+
+  // get the wellKnown from the host
   const issuer = await Issuer.discover(url);
-  // issuer.registration_endpoint = issuer.badgeConnectAPI[0].registrationUrl;
-  // issuer.authorization_endpoint = issuer.badgeConnectAPI[0].authorizationUrl;
-  // issuer.token_endpoint = issuer.badgeConnectAPI[0].tokenUrl;
-  // issuer.issuer = 'http://localhost:5000';
-  // issuer.jwks_uri = 'http://localhost:5000/jwks';
-  // issuer.userinfo_endpoint = 'http://localhost:5000/me';
 
   const { insertedId } = await saveDB(issuer, 'wellKnows');
-  const redirect_uri = `http://${req.headers.host}/callback/${insertedId}`;
 
+  const redirect_uri = `http://${req.headers.host}/callback/${insertedId}?userUid=${userUid}`; 
+
+  // register a new client for this host
   const client = await issuer.Client.register({
     redirect_uris: [redirect_uri],
-    application_type: 'native',
+    application_type: 'web',
     token_endpoint_auth_method: 'client_secret_basic'
   });
 
+  // generate teh code challenge 
   const code_verifier = 'davXRxc9zXNz6ZvdUL79ORSmXDEMe6TpM2AuL3bqz8t'; // generators.codeVerifier();
   const code_challenge = generators.codeChallenge(code_verifier);
 
+  // generate the redirect url
   const authUrl = client.authorizationUrl({
     redirect_uri,
     code_challenge,
@@ -34,8 +34,7 @@ export const register = async (req: Request, res, next) => {
       'openid https://purl.imsglobal.org/spec/ob/v2p1/scope/assertion.readonly'
   });
 
-  await saveDB({ ...client, _id: insertedId }, 'clients')
+  await saveDB({ ...client, _id: insertedId }, 'clients');
 
   res.json({ authUrl });
-  //   await saveDB(data , 'clients');
 };
