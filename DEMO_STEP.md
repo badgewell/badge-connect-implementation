@@ -12,5 +12,7 @@
 - Authorize the Relaying Party (Jobber in this case).
 - Get redirected to your profile back the access token for badgewell should now be in Jobber database .
 
+
+
 ## Missing in the Flow
 -  using the access token to get the assertions. 
