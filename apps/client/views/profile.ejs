@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title>Profile</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="container">
+        <span class="logo">
+          Jobber
+        </span>
+        <img class="_profile" src="<%= profile.photo %>" alt="" srcset="" />
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="profile">
+        <div class="cover">
+          <span>Profile</span>
+          <button>Add Cover Photo</button>
+        </div>
+        <div class="details">
+          <div class="avatar">
+            <img src="<%= profile.photo %>" alt="" />
+          </div>
+          <div class="info">
+            <span class="name">
+              <%= profile.firstName %>&nbsp;<%= profile.lastName %>
+            </span>
+            <span class="job"><%= profile.jobTitle %></span>
+            <!-- <span class="job"
+              >Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
+              culpa beatae quibusdam eius aspernatur modi dignissimos, quos
+              excepturi, aliquam magnam vel, quo maxime eaque libero saepe
+              quidem. Consequatur, minima provident.</span
+            > -->
+          </div>
+        </div>
+        <br />
+        <!-- <div class="experiences">
+          <h3>Experiences</h3>
+          <div class="experience">
+            <img
+              src="https://develop--badgewell-main.netlify.com/assets/Badgewell%20_Logo%20Horizontal.svg"
+              alt=""
+            />
+            <div class="title">
+              UX/UI Designer &nbsp;&nbsp;&nbsp;&nbsp; 2018 - present (11 months)
+            </div>
+          </div>
+          <div class="experience">
+            <img
+              src="https://develop--badgewell-main.netlify.com/assets/Badgewell%20_Logo%20Horizontal.svg"
+              alt=""
+            />
+            <div class="title">
+              UX/UI Designer &nbsp;&nbsp;&nbsp;&nbsp; 2018 - present (11 months)
+            </div>
+          </div>
+        </div> -->
+        <br />
+        <div class="connect">
+          <h3>Connect</h3>
+          <div class="form">
+            <form action="/redirect" method="post" class="form-group">
+              <span>Connect with</span>
+              <select name="selectedClient">
+                <option value=""></option>
+                <% if (clients && clients.length) { for (let i = 0; i <
+                clients.length; i++) { %>
+                <option value="<%= clients[i].authUrl %>">
+                  <%= clients[i].name %>
+                </option>
+                <% }} %>
+              </select>
+              <button type="submit">Add</button>
+            </form>
+            <!-- <div class="images">
+              <img src="images/iti1" alt="" />
+              <img src="images/iti2" alt="" />
+              <img src="images/iti3" alt="" />
+              <img src="images/iti4" alt="" />
+              <img src="images/iti5" alt="" />
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+@font-face {
+  font-family: badgewell_light;
+  src: url(../woff2/badgewell_light.woff2);
+}
+
+@font-face {
+  font-family: badgewell_regular;
+  src: url(../woff2/badgewell_regular.woff2);
+}
+
+@font-face {
+  font-family: badgewell_medium;
+  src: url(../woff2/badgewell_medium.woff2);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: badgewell_regular;
+}
+
+body {
+  background: #fff;
+}
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.login-container > img {
+  width: 200px;
+  margin-bottom: 50px;
+}
+
+.login-container > h3 {
+  color: #414042;
+  font-size: 17px;
+  font-weight: unset;
+  font-family: badgewell_medium;
+  margin-bottom: 50px;
+}
+
+.login-container > .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-container > .form-group > label {
+  display: flex;
+  flex-direction: column;
+  color: #414042;
+  font-size: 14px;
+}
+
+.login-container > .form-group > label > input {
+  background: #f1f2f2;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 4px 0;
+  outline: none;
+  min-width: 280px;
+  color: #414042;
+}
+
+.login-container > .form-group > button {
+  background: #7045af;
+  color: #fff;
+  border: none;
+  outline: 0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}

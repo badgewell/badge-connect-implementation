@@ -1,0 +1,373 @@
+@font-face {
+  font-family: badgewell_light;
+  src: url(../woff2/badgewell_light.woff2);
+}
+
+@font-face {
+  font-family: badgewell_regular;
+  src: url(../woff2/badgewell_regular.woff2);
+}
+
+@font-face {
+  font-family: badgewell_medium;
+  src: url(../woff2/badgewell_medium.woff2);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: badgewell_regular;
+}
+
+body {
+  background: #f1f1f1;
+}
+
+.navbar {
+  height: 55px;
+  color: #414042;
+  z-index: 1;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.navbar > .container {
+  display: flex;
+  width: 90%;
+  height: 100%;
+  margin: auto;
+  justify-content: space-between;
+}
+
+.navbar > .container > .logo {
+  font-family: badgewell_Medium;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background: #9e1e22;
+  padding: 0 15px;
+}
+
+.navbar > .container > .logo > img {
+  width: 75px;
+  height: 100%;
+}
+
+.navbar > .container > img._profile {
+  width: 45px;
+  height: 45px;
+  border: 1px dashed rgba(158, 158, 158, 0.5);
+  margin: auto 0;
+  border-radius: 50%;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  padding: 0 40px;
+  color: #414042;
+  font-size: 15px;
+}
+
+ul > li {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid #7045af;
+}
+
+.wrapper > .profile {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: auto;
+}
+
+.wrapper > .profile > .cover {
+  min-height: 65px;
+  max-height: 65px;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.wrapper > .profile > .cover > span {
+  font-weight: unset;
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #414042;
+}
+
+.wrapper > .profile > .cover > button {
+  outline: none;
+  border: 1px solid #9e9e9e;
+  background: transparent;
+  padding: 10px;
+  color: #414042;
+  cursor: pointer;
+  border-radius: 3px;
+  margin: 0 15px;
+  display: none;
+}
+
+.wrapper > .profile > .details {
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  padding: 15px;
+  height: auto;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 3px;
+}
+
+.wrapper > .profile > .details > .avatar {
+  width: 170px;
+  height: 170px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.wrapper > .profile > .details > .avatar > img {
+  width: 170px;
+  height: 170px;
+  cursor: pointer;
+}
+
+.wrapper > .profile > .details > .info {
+  color: #414042;
+  font-size: 16px;
+  padding: 20px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper > .profile > .details > .info > .name {
+  font-family: badgewell_medium;
+}
+
+.wrapper > .profile > .details > .info > span.job {
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+/*==========================
+  Experiences
+  --------------------------*/
+
+.experiences {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 5%;
+  height: auto;
+  flex-direction: column;
+}
+
+.experiences > h3 {
+  font-weight: unset;
+  font-size: 17px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  color: #414042;
+}
+
+.experiences > .experience {
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 3px;
+}
+
+.experiences > .experience > img {
+  width: 130px;
+  cursor: pointer;
+}
+
+.experiences > .experience > .title {
+  color: #414042;
+  font-size: 15px;
+  padding: 5px 10px;
+}
+
+/*==============================
+  Connect
+--------------------------------*/
+.connect {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 5%;
+  height: auto;
+  flex-direction: column;
+}
+
+.connect > h3 {
+  font-weight: unset;
+  font-size: 17px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  color: #414042;
+}
+
+.connect > .form {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+  flex-direction: column;
+}
+
+.connect > .form > .form-group {
+  display: flex;
+  align-items: center;
+  padding: 20px 15px;
+  background: rgba(241, 241, 241, 0.6);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  /* justify-content: center; */
+  width: 98%;
+  margin: auto;
+  /* margin-bottom: 15px; */
+  border: 1px dashed rgba(128, 128, 128, 0.5);
+}
+
+.connect > .form > .form-group > span {
+  display: block;
+  margin-right: 15px;
+  color: #414042;
+  font-size: 15px;
+}
+
+.connect > .form > .form-group > select {
+  padding: 10px 20px;
+  background: #fff;
+  font-size: 18px;
+  border: 1px dashed grey;
+  border-radius: 5px;
+  min-width: 280px;
+  outline: none;
+  cursor: pointer;
+}
+
+.connect > .form > .form-group > button {
+  background: #9e1e22;
+  color: #fff;
+  border: none;
+  outline: 0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 0 20px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.connect > .form > .images {
+  width: 85%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.connect > .form > .images > img {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
+  margin: 0 20px;
+  cursor: pointer;
+}
+
+/*==============================
+  Badges
+  ------------------------------*/
+.badges {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 5%;
+  height: auto;
+  flex-direction: column;
+}
+
+.badges > h3 {
+  font-weight: unset;
+  font-size: 17px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  color: #414042;
+}
+
+.badges > .images {
+  opacity: 1;
+}
+
+.badges > .images > img {
+  opacity: 1;
+}
+
+/*==============================
+  Authorization
+  ------------------------------*/
+.authorization {
+  opacity: 1;
+}
+
+.authorization > .access {
+  opacity: 1;
+}
+
+.authorization > .access > .actions {
+  opacity: 1;
+}
+
+.authorization > .access > .actions > .auth {
+  opacity: 1;
+}
+
+.authorization > .access > .actions > .cancel {
+  opacity: 1;
+}
+
+.authorization > .access > .controls {
+  opacity: 1;
+}
+
+.authorization > .access > .controls > h4 {
+  opacity: 1;
+}
+
+.authorization > .access > .controls > label {
+  opacity: 1;
+}
+
+.authorization > .access > .controls > label > input {
+  opacity: 1;
+}
+
+.authorization > .brand {
+  opacity: 1;
+}
