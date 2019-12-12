@@ -1,7 +1,8 @@
 import { getById, saveDB, getOneWhere } from '../utils/mongo';
 import { Issuer } from 'openid-client';
+import { Request, Response } from 'express';
 
-export const callback = async (req, res, next) => {
+export const callback = async (req: Request, res: Response, next) => {
   const { id } = req.params;
 
   const redirect_uri = `http://${req.headers.host}/callback/${id}`;
@@ -41,6 +42,8 @@ export const callback = async (req, res, next) => {
       saveDB({ ...tokenSet, uid, clientInternalId: id }, 'accessTokens')
     ]);
 
-    await res.json({ userinfo });
+   return res.redirect(`http://${req.headers.host}/profile/${uid}`);
+
+    // await res.json({ userinfo });
   }
 };
