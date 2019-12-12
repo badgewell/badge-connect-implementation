@@ -1,0 +1,156 @@
+@font-face {
+  font-family: badgewell_light;
+  src: url(../woff2/badgewell_light.woff2);
+}
+
+@font-face {
+  font-family: badgewell_regular;
+  src: url(../woff2/badgewell_regular.woff2);
+}
+
+@font-face {
+  font-family: badgewell_medium;
+  src: url(../woff2/badgewell_medium.woff2);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: badgewell_regular;
+}
+
+body {
+  background: #fff;
+}
+
+/*==============================
+  Authorization
+  ------------------------------*/
+.authorization {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.authorization > .access {
+  opacity: 1;
+}
+
+.authorization > .access > img {
+  width: 150px;
+  margin-top: 50px;
+  cursor: pointer;
+}
+
+.authorization > .access > .actions {
+  display: flex;
+  align-items: center;
+}
+
+.authorization > .access > h3 {
+  padding: 4px 0;
+  color: #414042;
+  font-size: 16px;
+  font-family: badgewell_medium;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-weight: unset;
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+
+.authorization > .access > .actions > form > .auth {
+  background: #7045af;
+  color: #fff;
+  border: none;
+  outline: 0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  min-width: 130px;
+}
+
+.authorization > .access > .actions > form > .cancel {
+  margin-left: 15px;
+  background: #f1f1f1;
+  color: #414042;
+  border: none;
+  outline: 0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  min-width: 130px;
+}
+
+.authorization > .access > .controls {
+  display: flex;
+  flex-direction: column;
+}
+
+.authorization > .access > .controls > h4 {
+  padding: 4px 0;
+  color: #414042;
+  font-size: 16px;
+  font-family: badgewell_medium;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-weight: unset;
+  margin-top: 50px;
+  margin-bottom: 15px;
+}
+
+.authorization > .access > .controls > label {
+  padding: 4px 0;
+  color: #414042;
+  font-size: 16px;
+  font-family: badgewell_light;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.authorization > .access > .controls > label > input {
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.authorization > .brand {
+  margin-left: 50px;
+}
+
+.authorization > .brand > img {
+  width: 150px;
+  margin-top: 50px;
+  cursor: pointer;
+}
+
+.authorization > .brand > p {
+  color: #414042;
+  font-size: 15px;
+  font-family: badgewell_Regular;
+  max-width: 280px;
+  line-height: 21px;
+}
+
+.authorization > .brand > a {
+  color: #2164f2;
+  text-decoration: none;
+  font-size: 15px;
+  margin-top: 10px;
+  display: block;
+}

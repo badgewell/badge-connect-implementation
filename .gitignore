@@ -2,3 +2,4 @@
 **/**/dist/
 **/**/.env
 apps/oauth/jwks.json
+/front
