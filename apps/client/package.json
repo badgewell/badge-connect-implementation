@@ -10,7 +10,8 @@
     "watch-node": "nodemon dist/server.js",
     "watch-ts": "tsc -w",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "copy-static-assets": "ts-node copyStaticAssets.ts"
   },
   "author": "",
   "license": "MIT",
@@ -21,6 +22,7 @@
     "@types/faker": "^4.1.8",
     "@types/mocha": "^5.2.7",
     "@types/mongodb": "^3.3.12",
+    "@types/shelljs": "^0.8.6",
     "concurrently": "^5.0.0",
     "nodemon": "^2.0.1",
     "ts-mocha": "^6.0.0",
@@ -29,10 +31,12 @@
   },
   "dependencies": {
     "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "mongodb": "^3.3.5",
     "node-fetch": "^2.6.0",
-    "openid-client": "^3.9.0"
+    "openid-client": "^3.9.0",
+    "shelljs": "^0.8.3"
   }
 }
