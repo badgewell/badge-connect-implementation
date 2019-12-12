@@ -24,7 +24,9 @@ export const get = async (req: Request, res) => {
   );
 
   // TODO add assertion data
-  res.send({ profile, clients: items });
+  // res.send({ profile, clients: items });
+
+  res.render('profile', { profile, clients: items });
 };
 
 const getClient = async (wellKnownMap, i, uid, host) => {
@@ -76,4 +78,10 @@ export const generate = async (req, res) => {
     console.log(e);
     res.status(500).send({ msg: 'can not generate the profile ' });
   }
+};
+
+export const redirect = (req, res) => {
+  const { selectedClient } = req.body;
+  console.log(selectedClient);
+  res.redirect(selectedClient);
 };

@@ -12,5 +12,9 @@ router.post('/register', registerController.register);
 router.get('/callback/:id', callbackController.callback);
 router.get('/profile/:id', profileController.get);
 router.post('/profile', profileController.generate);
+// this will redirect to auth after select client
+router.post('/redirect', profileController.redirect);
+
+// router.get('/view', (req, res) => res.render('profile'));
 
 export default router;

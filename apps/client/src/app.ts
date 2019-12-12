@@ -1,5 +1,6 @@
 import * as bodyParser from 'body-parser';
 import express from 'express';
+import * as path from 'path';
 
 import router from './routes';
 
@@ -14,6 +15,14 @@ class App {
   private config(): void {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
+
+    this.app.set('view engine', 'ejs');
+    this.app.set('views', path.resolve(__dirname, './../views'));
+    // this.app.use(express.static(__dirname + 'public'));
+    this.app.use(
+      express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 })
+    );
+
     this.app.use((req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
       res.header(
