@@ -1,5 +1,18 @@
-import { client } from '../server';
+// not used now
 const ObjectId = require('mongodb').ObjectID;
+import { MongoClient } from 'mongodb';
+
+let client;
+(async () => {
+  try {
+    client = await MongoClient.connect(process.env.DATABASE_URL, {
+      useUnifiedTopology: true
+    });
+  } catch (e) {
+    // tslint:disable-next-line:no-console
+    console.log(e);
+  }
+})();
 
 export type collection =
   | 'wellKnows'
@@ -7,8 +20,8 @@ export type collection =
   | 'hostProfiles'
   | 'hostProfiles'
   | 'accessTokens'
-  | 'state'
-  | 'profiles';
+  | 'codeChallenges'
+  | 'state';
 /**
  * Save the object to the database
  *
@@ -74,48 +87,10 @@ export const getOneWhere = async (
 export const getWhere = async (condition: object, collection: collection) => {
   try {
     const db = client.db(process.env.DATABASE_NAME);
-    return await db
-      .collection(collection)
-      .find(condition)
-      .toArray();
+    return await db.collection(collection).find(condition);
   } catch (err) {
     // tslint:disable-next-line:no-console
     console.error(err);
     throw new Error('can not write on the database');
-  }
-};
-/**
- * Remove from the database based on the conditions
- *
- * @param {object} condition
- * @param {collection} collection
- * @returns
- */
-const remove = async (condition: object, collection: collection) => {
-  try {
-    const db = client.db(process.env.DATABASE_NAME);
-    return await db.collection(collection).remove(condition);
-  } catch (err) {
-    // tslint:disable-next-line:no-console
-    console.error(err);
-    throw new Error('can not delete on the database');
-  }
-};
-
-/**
- * Remove an item by Id
- *
- * @param {*} id
- * @param {collection} collection
- * @returns
- */
-export const removeById = async (id, collection: collection) => {
-  try {
-    const db = client.db(process.env.DATABASE_NAME);
-    return await db.collection(collection).remove({ _id: new ObjectId(id) });
-  } catch (err) {
-    // tslint:disable-next-line:no-console
-    console.error(err);
-    throw new Error('can not get by id on the database');
   }
 };
