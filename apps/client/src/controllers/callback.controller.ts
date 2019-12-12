@@ -44,6 +44,5 @@ export const callback = async (req: Request, res: Response, next) => {
 
    return res.redirect(`http://${req.headers.host}/profile/${uid}`);
 
-    // await res.json({ userinfo });
   }
 };
