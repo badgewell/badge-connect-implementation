@@ -3,3 +3,4 @@
 **/**/.env
 apps/oauth/jwks.json
 /front
+/.idea

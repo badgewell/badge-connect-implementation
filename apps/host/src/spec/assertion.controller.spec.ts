@@ -1,7 +1,7 @@
 import chaiServer from 'chai';
 import chaiHttp from 'chai-http';
 import jwt from 'jsonwebtoken';
-import server from '../server';
+import { server } from '../server';
 const { expect } = chaiServer;
 
 chaiServer.use(chaiHttp);

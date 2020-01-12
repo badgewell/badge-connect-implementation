@@ -9,7 +9,7 @@ router.get('/health', (req, res) => {
   res.status(200).send('Done');
 });
 router.post('/register', registerController.register);
-router.get('/callback/:id', callbackController.callback);
+router.get('/callback/:id', callbackController.callback , callbackController.getAssertions);
 router.get('/profile/:id', profileController.get);
 router.post('/profile', profileController.generate);
 // this will redirect to auth after select client

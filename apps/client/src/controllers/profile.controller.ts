@@ -7,7 +7,8 @@ import { Request } from 'express';
 // TODO refactor the request into small ones and use es6+ syntax
 export const get = async (req: Request, res) => {
   const { id: uid } = req.params;
-  const [profile, clients, wellKnows] = await Promise.all([
+  const [assertions , profile, clients, wellKnows] = await Promise.all([
+    getOneWhere({uid: uid} , 'assertions'),
     getOneWhere({ id: uid }, 'profiles'),
     getWhere({}, 'clients'),
     getWhere({}, 'wellKnows')
