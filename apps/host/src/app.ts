@@ -7,6 +7,7 @@ import express from 'express';
 
 import './db';
 import router from './routes';
+import { generateData } from './generateData';
 
 class App {
   public app: express.Application;
@@ -14,6 +15,9 @@ class App {
   constructor() {
     this.app = express();
     this.config();
+    (async () => {
+      await generateData();
+    })();
   }
 
   private config(): void {

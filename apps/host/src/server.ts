@@ -6,4 +6,4 @@ const server = app.listen(PORT, () =>
   console.log('Express server listening on port ' + PORT)
 );
 
-export default server;
+export {server};

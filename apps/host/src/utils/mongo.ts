@@ -1,4 +1,4 @@
-import { client } from '../server';
+//import { client } from '../server';
 const ObjectId = require('mongodb').ObjectID;
 
 export type collection =
@@ -8,8 +8,8 @@ export type collection =
   | 'hostProfiles'
   | 'accessTokens'
   | 'state'
-  | 'profiles'
-  | 'assertions';
+  | 'profile'
+  | 'assertion';
 /**
  * Save the object to the database
  *

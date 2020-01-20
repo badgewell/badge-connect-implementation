@@ -3,7 +3,7 @@ import chaiHttp from 'chai-http';
 import jwt from 'jsonwebtoken';
 import flatten from 'flat';
 
-import server from '../server';
+import { server } from '../server';
 import Profile from '../models/profile.model';
 
 const { expect } = chaiServer;
