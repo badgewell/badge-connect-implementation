@@ -10,7 +10,9 @@
     "watch-node": "nodemon dist/server.js",
     "watch-ts": "tsc -w",
     "test": "DATABASE_NAME=open_badges_test ts-mocha src/spec/**.spec.ts",
-    "tslint": "tslint -c tslint.json -p tsconfig.json"
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "deploy": "gcloud config set project  badgewell-badgeconnect && gcloud builds submit --tag gcr.io/badgewell-badgeconnect/bw-bc-host-service && gcloud beta run deploy bw-bc-host --image gcr.io/badgewell-badgeconnect/bw-bc-host-service"
+
   },
   "author": "",
   "license": "MIT",

@@ -13,7 +13,9 @@
     "watch-ts": "tsc -w",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "test": "ts-mocha src/spec/**.spec.ts",
-    "copy-static-assets": "ts-node copyStaticAssets.ts"
+    "copy-static-assets": "ts-node copyStaticAssets.ts",
+    "deploy": "gcloud config set project  badgewell-badgeconnect && gcloud builds submit --tag gcr.io/badgewell-badgeconnect/bw-bc-oauth-service && gcloud beta run deploy bw-bc-oauth --image gcr.io/badgewell-badgeconnect/bw-bc-oauth-service  --allow-unauthenticated"
+
   },
   "author": "",
   "license": "MIT",
