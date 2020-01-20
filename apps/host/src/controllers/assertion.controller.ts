@@ -272,7 +272,7 @@ export async function findAssertions(req: any, res: Response) {
     //console.log(assertions);
 
     const assertionsCount = await Assertion.countDocuments();
-
+    //console.log(assertionsCount);
     const appUrl =
       req.protocol +
       '://' +
@@ -291,8 +291,8 @@ export async function findAssertions(req: any, res: Response) {
     }
 
     if (offset > 0 && offset <= assertionsCount) {
-      response.prevLink =
-        appUrl + '?limit=' + limit + '&offset=' + (offset - limit);
+      const offsetValue =  offset == 1 ? 0 : + (offset - limit);
+      response.prevLink = appUrl + '?limit=' + limit + '&offset=' + offsetValue
     }
 
     return res.status(200).send(response);

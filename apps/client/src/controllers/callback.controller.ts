@@ -52,17 +52,17 @@ export const callback = async (req: any, res: Response, next) => {
 
 export const getAssertions = async(req: any , res:any , next) => {
   //console.log(req);
-  const response = await fetch('http://localhost:4000/assertion' , 
+  const response = await fetch('http://localhost:4000/assertion?limit=11&offset=0' , 
                              {method:'GET' ,headers:{accesstoken:process.env.ACCESS_TOKEN}});
 
   const data = await response.json();
-  data.results.forEach(async (assertion:any) => {
+  for(const assertion of data.results){
     assertion.uid = req.uid;
     assertion.client_id = req.params.id;
 
-    //console.log(assertion);
-
+    console.log(assertion);
     await saveDB(assertion , 'assertions');
-  });
+  }
+
   //console.log(data);
 }  
