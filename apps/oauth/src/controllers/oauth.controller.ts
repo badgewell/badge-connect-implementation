@@ -13,7 +13,7 @@ assert.equal(
   'process.env.SECURE_KEY format invalid'
 );
 
-const oidc = new Provider(`http://localhost:4000`, {
+const oidc = new Provider(process.env.BASE_URL, {
   adapter: MongoAdapter, // the adapter to use later on ,
   clientDefaults: {
     grant_types: ['authorization_code', 'refresh_token'],
