@@ -20,7 +20,7 @@ RUN npm install
 COPY . .
 
 # Build using tsc
-RUN npm run build-ts
+RUN npm run build
 
 # Add static files
 RUN npm run copy-static-assets

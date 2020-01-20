@@ -12,7 +12,7 @@
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1",
     "copy-static-assets": "ts-node copyStaticAssets.ts",
-    "deploy": "gcloud config set project badgewell-badgeconnect && gcloud builds submit --tag gcr.io/badgewell-badgeconnect/bw-bc-client-service && gcloud beta run deploy bw-bc-client --image gcr.io/badgewell-badgeconnect/bw-bc-client-service"
+    "deploy": "gcloud config set project badgewell-badgeconnect && gcloud builds submit --tag gcr.io/badgewell-badgeconnect/bw-bc-client-service && gcloud beta run deploy bw-bc-client --image gcr.io/badgewell-badgeconnect/bw-bc-client-service --allow-unauthenticated"
   },
   "author": "",
   "license": "MIT",

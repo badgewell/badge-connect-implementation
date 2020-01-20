@@ -20,7 +20,7 @@ RUN npm install
 COPY . .
 
 # Build using tsc
-RUN npm run build-ts
+RUN npm run build
 
 # Run the web service on container startup.
 CMD [ "npm", "start" ]
