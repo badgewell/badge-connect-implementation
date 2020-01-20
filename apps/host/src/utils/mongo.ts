@@ -1,4 +1,4 @@
-import { client } from '../server';
+//import { client } from '../server';
 const ObjectId = require('mongodb').ObjectID;
 
 export type collection =
