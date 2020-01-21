@@ -2,35 +2,26 @@ import * as mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const AssertionSchema = new Schema(
+const AccessTokenSchema = new Schema(
   {
     id: String,
-    type: String,
-    '@context': String,
-    badge: String,
-    image: String,
-    verification: new Schema({
-      type: String
-    }),
-    evidence: [
-      new Schema({
-        id: String,
-        type: String
-      })
-    ],
-    narrative: String,
-    issuedOn: String,
-    expires: String,
-    recipient: new Schema({
-      salt: String,
-      type: String,
-      hashed: Boolean,
-      identity: String
+    expiresAt: Date,
+    payload : new Schema({
+        iat: Number,
+        exp: Number,
+        accountId: String,
+        calims: new Schema({
+            rejected: Array
+        }),
+        expiresWithSession: Boolean,
+        grantId: String,
+        gty: String,
+        scope: String,
+        sessionUid: String,
+        kind: String,
+        jti: String,
+        clientId: String,
     })
-  },
-  {
-    timestamps: true
-  }
-);
+})
 
-export default mongoose.model('Assertion', AssertionSchema);
+ export default mongoose.model('access_token', AccessTokenSchema , 'access_token');

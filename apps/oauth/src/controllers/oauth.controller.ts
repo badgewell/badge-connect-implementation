@@ -6,9 +6,6 @@ import { Account } from './../services/account.service';
 // TODO turn the following into environment variables
 // TODO add jsonWebKeys as a string in environment variables
 
-process.env.SECURE_KEY =
-  'asupersecretpasswordthatnoonecanguess,anotherpassowrdthatismuchstorgerthantthefirstone';
-
 assert(process.env.SECURE_KEY, 'process.env.SECURE_KEY missing');
 assert.equal(
   process.env.SECURE_KEY.split(',').length,
@@ -16,7 +13,7 @@ assert.equal(
   'process.env.SECURE_KEY format invalid'
 );
 
-const oidc = new Provider(`http://localhost:4000`, {
+const oidc = new Provider(process.env.BASE_URL, {
   adapter: MongoAdapter, // the adapter to use later on ,
   clientDefaults: {
     grant_types: ['authorization_code', 'refresh_token'],
@@ -66,18 +63,18 @@ const oidc = new Provider(`http://localhost:4000`, {
   },
   //   the routes defined by the library
   routes: {
-    authorization: '/authorization',
-    check_session: '/session/check',
-    code_verification: '/device',
-    device_authorization: '/device/auth',
-    end_session: '/session/end',
-    introspection: '/token/introspection',
-    jwks: '/jwks',
-    pushed_authorization_request: '/request',
-    registration: '/registration',
-    revocation: '/token/revocation',
-    token: '/token',
-    userinfo: '/me'
+    authorization: process.env.AUTHORIZATION_ENDPOINT,
+    check_session: process.env.SESSION_ENDPOINT,
+    code_verification: process.env.CODE_VERIFICATION_ENDPOINT,
+    device_authorization: process.env.DEVICE_AUTHORIZATION_ENDPOINT,
+    end_session: process.env.END_SESSION_ENDPOINT,
+    introspection: process.env.INTROSPECTION_ENDPOINT,
+    jwks: process.env.JWKS_ENDPOINT,
+    pushed_authorization_request: process.env.PUSHED_AUTHORIZATION_REQUEST_ENDPOINT,
+    registration: process.env.REGISTRATION_ENDPOINT,
+    revocation: process.env.REVOCATION_ENDPOINT,
+    token: process.env.TOKEN_ENDPOINT,
+    userinfo: process.env.USER_INFO_ENDPOINT
   }
 });
 

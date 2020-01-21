@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import flatten from 'flat';
 import url from 'url';
 
+import { sha256 } from '../utils/sha256';
+
 import Assertion from '../models/assertion.model';
 import { IAssertion } from '../types/assertion.type';
 
@@ -243,8 +245,11 @@ export async function createAssertion(req: Request, res: Response) {
   }
 }
 
-export async function findAssertions(req: Request, res: Response) {
+export async function findAssertions(req: any, res: Response) {
   try {
+    console.log(req.uid , req.profile);
+    const identity = sha256(req.profile.email, 'badgewellISO');
+    console.log(req.profile.email, identity);
     const offset = +req.query.offset || 0;
     const limit = +req.query.limit || 10;
     const { status } = req.query;
@@ -255,16 +260,19 @@ export async function findAssertions(req: Request, res: Response) {
       query.status = status;
     }
 
+    // match on recipient.identity
     const assertions = await Assertion.find(
-      {},
+      {'recipient.identity': 'sha256$' + identity.hash},
       '-_id -__v -createdAt -updatedAt'
     )
       .sort({ createdAt: -1 })
       .limit(limit)
       .skip(offset);
 
-    const assertionsCount = await Assertion.countDocuments();
+    //console.log(assertions);
 
+    const assertionsCount = await Assertion.countDocuments();
+    //console.log(assertionsCount);
     const appUrl =
       req.protocol +
       '://' +
@@ -283,8 +291,8 @@ export async function findAssertions(req: Request, res: Response) {
     }
 
     if (offset > 0 && offset <= assertionsCount) {
-      response.prevLink =
-        appUrl + '?limit=' + limit + '&offset=' + (offset - limit);
+      const offsetValue =  offset == 1 ? 0 : + (offset - limit);
+      response.prevLink = appUrl + '?limit=' + limit + '&offset=' + offsetValue
     }
 
     return res.status(200).send(response);

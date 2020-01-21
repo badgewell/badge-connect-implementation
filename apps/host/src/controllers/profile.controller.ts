@@ -129,15 +129,10 @@ export async function createProfile(req: Request, res: Response) {
   }
 }
 
-export async function findProfile(req: IRequest, res: Response) {
+export async function findProfile(req: any, res: Response) {
   try {
-    const { id } = req.authUser;
 
-    const profile = await Profile.findById(
-      id,
-      '-_id -__v -createdAt -updatedAt'
-    );
-
+    const { profile } = req
     return res.status(200).send({
       status: {
         statusCode: 200,

@@ -3,3 +3,6 @@
 **/**/.env
 apps/oauth/jwks.json
 /front
+/.idea
+apps/oauth/badgewell-badge-connect.json
+apps/host/.env

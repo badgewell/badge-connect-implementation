@@ -23,6 +23,7 @@
     "@types/faker": "^4.1.8",
     "@types/mocha": "^5.2.7",
     "@types/mongodb": "^3.3.12",
+    "@types/node-fetch": "^2.5.4",
     "@types/shelljs": "^0.8.6",
     "concurrently": "^5.0.0",
     "nodemon": "^2.0.1",

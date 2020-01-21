@@ -1,8 +1,10 @@
 import { getById, saveDB, getOneWhere } from '../utils/mongo';
 import { Issuer } from 'openid-client';
 import { Request, Response } from 'express';
+import fetch from 'node-fetch';
 
-export const callback = async (req: Request, res: Response, next) => {
+export const callback = async (req: any, res: Response, next) => {
+  //console.log(222 , req.params.id);
   const { id } = req.params;
 
   const redirect_uri = `http://${req.headers.host}/callback/${id}`;
@@ -42,7 +44,34 @@ export const callback = async (req: Request, res: Response, next) => {
       saveDB({ ...tokenSet, uid, clientInternalId: id }, 'accessTokens')
     ]);
 
-   return res.redirect(`http://${req.headers.host}/profile/${uid}`);
+    // set the base url for fetching the assertions
+    // set the uid for use in the redirect
+    req.apiBase = wellKnownMetadata.apiBase;
+    req.uid = uid;
 
+    next();
   }
+};
+
+export const getAssertions = async (req: any, res: any, next) => {
+  //console.log(req);
+  const response = await fetch(
+    `http://${req.apiBase}/assertion?limit=11&offset=0`,
+    { method: 'GET', headers: { accesstoken: process.env.ACCESS_TOKEN } }
+  );
+
+  const data = await response.json();
+  for (const assertion of data.results) {
+    assertion.uid = req.uid;
+    assertion.client_id = req.params.id;
+
+    console.log(assertion);
+    await saveDB(assertion, 'assertions');
+  }
+
+  next();
+};
+
+export const redirect = (req, res) => {
+  return res.redirect(`http://${req.headers.host}/profile/${req.uid}`);
 };

@@ -31,6 +31,7 @@ export class Account {
 
     return {
       accountId: id,
+      
       // and this claims() method would actually query to retrieve the account claims
       async claims() {
         return {

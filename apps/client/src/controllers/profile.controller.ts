@@ -5,9 +5,11 @@ import { IProfile } from '../types/profile.type';
 import { Request } from 'express';
 
 // TODO refactor the request into small ones and use es6+ syntax
-export const get = async (req: Request, res) => {
+// TODO add model for the repsone of profile
+export const get = async (req: Request & {response:any}, res,next) => {
   const { id: uid } = req.params;
-  const [profile, clients, wellKnows] = await Promise.all([
+  const [assertions , profile, clients, wellKnows] = await Promise.all([
+    getWhere({uid: uid} , 'assertions'),
     getOneWhere({ id: uid }, 'profiles'),
     getWhere({}, 'clients'),
     getWhere({}, 'wellKnows')
@@ -23,11 +25,25 @@ export const get = async (req: Request, res) => {
     clients.map(i => getClient(wellKnownMap, i, uid, req.headers.host))
   );
 
-  // TODO add assertion data
-  // res.send({ profile, clients: items });
+  req.response = { profile, clients: items , assertions }
 
-  res.render('profile', { profile, clients: items });
+  next()
+
 };
+
+export const sendRenderResponse = async (req,res) =>{
+
+  return  res.render('profile', req.response);
+
+
+}
+
+export const sendJsonResponse = async (req,res) =>{
+
+  return res.json(req.response);
+
+  
+}
 
 const getClient = async (wellKnownMap, i, uid, host) => {
   const issuer = new Issuer(wellKnownMap[i._id]);

@@ -8,7 +8,8 @@ export type collection =
   | 'hostProfiles'
   | 'accessTokens'
   | 'state'
-  | 'profiles';
+  | 'profiles'
+  | 'assertions';
 /**
  * Save the object to the database
  *

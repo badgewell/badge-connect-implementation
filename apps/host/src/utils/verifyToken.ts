@@ -10,6 +10,7 @@ function verifyToken(req: IRequest, res: Response, next) {
   if (typeof bearerHeader !== 'undefined') {
     const bearer = bearerHeader.split(' ');
     const bearerToken = bearer[1];
+    console.log(bearerToken);
 
     // jwt.decode(bearerToken);
 
