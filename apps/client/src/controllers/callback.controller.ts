@@ -46,7 +46,8 @@ export const callback = async (req: any, res: Response, next) => {
 
     // set the base url for fetching the assertions
     // set the uid for use in the redirect
-    req.apiBase = wellKnownMetadata.apiBase;
+    //console.log(wellKnownMetadata.badgeConnectAPI[0].apiBase);
+    req.apiBase = wellKnownMetadata.badgeConnectAPI[0].apiBase;
     req.uid = uid;
 
     next();
@@ -56,7 +57,7 @@ export const callback = async (req: any, res: Response, next) => {
 export const getAssertions = async (req: any, res: any, next) => {
   //console.log(req);
   const response = await fetch(
-    `http://${req.apiBase}/assertion?limit=11&offset=0`,
+    `${req.apiBase}/assertion?limit=11&offset=0`,
     { method: 'GET', headers: { accesstoken: process.env.ACCESS_TOKEN } }
   );
 
