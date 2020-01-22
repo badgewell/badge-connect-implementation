@@ -35,6 +35,9 @@ const oidc = new Provider(process.env.BASE_URL, {
   // with an object with accountId property and a claims method.
   findAccount: Account.findAccount,
 
+  formats:{
+    AccessToken:'jwt'
+  },
   // let's tell oidc-provider you also support the email scope, which will contain email and
   // email_verified claims
   claims: {
