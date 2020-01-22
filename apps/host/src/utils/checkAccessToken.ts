@@ -5,7 +5,6 @@ import profile from '../models/profile.model';
 export const checkAccessToken = async (req: any, res: Response, next) => {
   try {
     if (!req.headers.accesstoken) {
-
       res.status(403).send({
         status: {
           error: 'Header must be provided',
@@ -14,9 +13,9 @@ export const checkAccessToken = async (req: any, res: Response, next) => {
         }
       });
     } else {
-      const accessToken = await access_token.findOne({id:req.headers.accesstoken});
-      //console.log(req.headers.accesstoken , accessToken.toJSON().payload);
-
+      const accessToken = await access_token.findOne({
+        id: req.headers.accesstoken
+      });
 
       if (!accessToken) {
         res.status(401).send({
@@ -25,16 +24,14 @@ export const checkAccessToken = async (req: any, res: Response, next) => {
             statusCode: 401,
             statusText: 'UNAUTHENTICATED'
           }
-        });        
+        });
       } else {
-
-        //console.log(payload.accountId);
-          
         req.uid = accessToken.toJSON().payload.accountId;
-        req.profile =  await profile
-        .findOne({ id: process.env.BASE_URL+accessToken.toJSON().payload.accountId });
-
-        //console.log(req.profile , req.uid);
+        req.profile = await profile.findOne({
+          id: `${process.env.BASE_URL}/profiles/${
+            accessToken.toJSON().payload.accountId
+          }`
+        });
         next();
       }
     }

@@ -247,9 +247,7 @@ export async function createAssertion(req: Request, res: Response) {
 
 export async function findAssertions(req: any, res: Response) {
   try {
-    console.log(req.uid , req.profile);
     const identity = sha256(req.profile.email, 'badgewellISO');
-    console.log(req.profile.email, identity);
     const offset = +req.query.offset || 0;
     const limit = +req.query.limit || 10;
     const { status } = req.query;
@@ -269,10 +267,8 @@ export async function findAssertions(req: any, res: Response) {
       .limit(limit)
       .skip(offset);
 
-    //console.log(assertions);
 
     const assertionsCount = await Assertion.countDocuments();
-    //console.log(assertionsCount);
     const appUrl =
       req.protocol +
       '://' +

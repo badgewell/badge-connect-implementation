@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "build": "tsc",
-    "generate": "ts-node generateData",
+    "generate": "ts-node src/generateData",
     "start": "node dist/server.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,green.bold\"  \"npm run watch-ts\" \"npm run watch-node\"",
     "watch-node": "nodemon dist/server.js",
@@ -13,7 +13,6 @@
     "test": "DATABASE_NAME=open_badges_test ts-mocha src/spec/**.spec.ts",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "deploy": "gcloud config set project  badgewell-badgeconnect && gcloud builds submit --tag gcr.io/badgewell-badgeconnect/bw-bc-host-service && gcloud beta run deploy bw-bc-host --image gcr.io/badgewell-badgeconnect/bw-bc-host-service"
-
   },
   "author": "",
   "license": "MIT",
@@ -31,6 +30,7 @@
     "mocha": "^6.2.2",
     "nodemon": "^1.19.4",
     "ts-mocha": "^6.0.0",
+    "ts-node": "^8.6.2",
     "tslint": "^5.20.0",
     "typescript": "^3.6.4"
   },
@@ -42,7 +42,6 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.3.5",
     "mongoose": "^5.7.13",
-    "ts-node": "^8.5.4",
     "validator": "^12.1.0"
   }
 }
