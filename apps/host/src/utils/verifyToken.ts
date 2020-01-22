@@ -12,7 +12,6 @@ function verifyToken(req: IRequest, res: Response, next) {
     const bearerToken = bearer[1];
     console.log(bearerToken);
 
-    // jwt.decode(bearerToken);
 
     jwt.verify(bearerToken, process.env.JWT_SECRET, (err, authUser) => {
       if (err) {

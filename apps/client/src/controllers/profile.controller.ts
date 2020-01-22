@@ -91,7 +91,7 @@ export const generate = async (req, res) => {
     await saveDB({ ...profile, _id: profile.id }, 'profiles');
     res.send(profile);
   } catch (e) {
-    console.log(e);
+    console.error(e);
     res.status(500).send({ msg: 'can not generate the profile ' });
   }
 };

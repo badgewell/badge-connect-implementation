@@ -4,7 +4,6 @@ import { Request, Response } from 'express';
 import fetch from 'node-fetch';
 
 export const callback = async (req: any, res: Response, next) => {
-  //console.log(222 , req.params.id);
   const { id } = req.params;
 
   const redirect_uri = `http://${req.headers.host}/callback/${id}`;
@@ -44,27 +43,31 @@ export const callback = async (req: any, res: Response, next) => {
       saveDB({ ...tokenSet, uid, clientInternalId: id }, 'accessTokens')
     ]);
 
-    // set the base url for fetching the assertions
-    // set the uid for use in the redirect
-    //console.log(wellKnownMetadata.badgeConnectAPI[0].apiBase);
     req.apiBase = wellKnownMetadata.badgeConnectAPI[0].apiBase;
     req.uid = uid;
+    req.tokenSet = tokenSet;
 
     next();
   }
 };
 
 export const getAssertions = async (req: any, res: any, next) => {
-  //console.log(req);
-  const response = await fetch(
-    `${req.apiBase}/assertion?limit=11&offset=0`,
-    { method: 'GET', headers: { accesstoken: process.env.ACCESS_TOKEN } }
-  );
+  // TODO remove the access token that is hard coded
+  const response = await fetch(`${req.apiBase}/assertion?limit=11&offset=0`, {
+    method: 'GET',
+    headers: { accesstoken: req.tokenSet.access_token } // process.env.ACCESS_TOKEN
+  });
 
   const data = await response.json();
+  console.log(data);
   for (const assertion of data.results) {
     assertion.uid = req.uid;
     assertion.client_id = req.params.id;
+
+    if (typeof assertion.badge === 'string') {
+      const object = await fetch(assertion.badge);
+      assertion.badge = await object.json();
+    }
 
     console.log(assertion);
     await saveDB(assertion, 'assertions');

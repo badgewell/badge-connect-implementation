@@ -23,7 +23,6 @@ class App {
     // let's work with express here, below is just the interaction definition
     this.app.set('trust proxy', true);
     this.app.set('view engine', 'ejs');
-    console.log('__dirname ', __dirname);
     this.app.set('views', path.resolve(__dirname, './../views'));
     // this.app.use(express.static(__dirname + 'public'));
     this.app.use(
