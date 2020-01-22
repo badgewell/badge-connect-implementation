@@ -78,6 +78,11 @@
               </select>
               <button type="submit">Add</button>
             </form>
+            <div class="images">
+              for (let i = 0; i < assertions.length; i++) { %>
+              <img src="<%= assertions[i].badge.image.id %>" alt="" />
+              <% } %>
+            </div>
             <!-- <div class="images">
               <img src="images/iti1" alt="" />
               <img src="images/iti2" alt="" />
