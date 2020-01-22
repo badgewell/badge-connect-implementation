@@ -2,10 +2,7 @@ import mongoose from 'mongoose';
 mongoose.Promise = global.Promise;
 
 try {
-  mongoose.connect(process.env.DATABASE_URL + '/' + process.env.DATABASE_NAME, {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useFindAndModify: false,
+  mongoose.connect(process.env.DATABASE_URL, {
     useUnifiedTopology: true
   });
   console.log(
