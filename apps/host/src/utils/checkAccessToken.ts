@@ -28,9 +28,10 @@ export const checkAccessToken = async (req: any, res: Response, next) => {
       } else {
         req.uid = accessToken.toJSON().payload.accountId;
         req.profile = await profile.findOne({
-          id: process.env.BASE_URL + accessToken.toJSON().payload.accountId
+          id: `${process.env.BASE_URL}/profiles/${
+            accessToken.toJSON().payload.accountId
+          }`
         });
-
         next();
       }
     }

@@ -1,8 +1,11 @@
 import Assertion from './models/assertion.model';
 import Profile from './models/profile.model';
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 const profile = {
-  id: 'https://ims.global.org/profiles/23121d3c-84df-44ac-b458-3d63a9a05497',
+  id: `${process.env.BASE_URL}/profiles/23121d3c-84df-44ac-b458-3d63a9a05497`,
   type: 'Profile',
   '@context': 'https://w3id.org/openbadges/v2',
   description: 'Test user',
@@ -15,7 +18,7 @@ const assertion = {
   '@context': 'https://w3id.org/openbadges/v2',
   evidence: [],
   id:
-    'https://www.badgewell.com/api/openbadges/assertion/B1pzF8uCz/sk4nLu0n7a0eRC84iG3I/LlXtf36AK5hsjTm4kiHDvYe1leC3',
+    `${process.env.BASE_URL}/assertion/B1pzF8uCz/sk4nLu0n7a0eRC84iG3I/LlXtf36AK5hsjTm4kiHDvYe1leC3`,
   type: 'Assertion',
   recipient: {
     type: 'email',
@@ -33,16 +36,15 @@ const assertion = {
 export const generateData = async () => {
   try {
     const _profile = await Profile.findOne({
-      id: 'https://ims.global.org/profiles/23121d3c-84df-44ac-b458-3d63a9a05497'
+      id: `${process.env.BASE_URL}/profiles/23121d3c-84df-44ac-b458-3d63a9a05497`
     });
 
-    if (_profile) { 
+    if (_profile) {
       console.log('Profile already exists');
     } else {
       const result = await Profile.create(profile);
       console.log('Profile saved ', result);
     }
-
 
     if (
       await Assertion.findOne({
