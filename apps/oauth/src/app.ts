@@ -18,8 +18,8 @@ class App {
   }
 
   private config(): void {
-    this.app.use(bodyParser.json());
-    this.app.use(bodyParser.urlencoded({ extended: false }));
+    // this.app.use(bodyParser.json());
+    // this.app.use(bodyParser.urlencoded({ extended: false }));
     // let's work with express here, below is just the interaction definition
     this.app.set('trust proxy', true);
     this.app.set('view engine', 'ejs');
