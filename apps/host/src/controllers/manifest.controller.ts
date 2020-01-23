@@ -36,7 +36,7 @@ export const wellKnown = (req: Request, res: Response) => {
       {
         apiBase: API_BASE,
         authorizationUrl: AUTHORIZATION_URL,
-        id: `${protocol}://${host}/.well-known/badgeconnect.json`,
+        id: `${req.secure ? 'https' : 'http'}://${req.headers.host}/.well-known/badgeconnect.json`,
         image: LOGO_URL,
         name: NAME,
         privacyPolicyUrl: PRIVACY_POLICY_URL,
