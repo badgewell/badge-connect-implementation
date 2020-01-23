@@ -3,8 +3,9 @@ import * as express from 'express';
 import * as Manifest from './controllers/manifest.controller';
 import * as Profile from './controllers/profile.controller';
 import * as Assertion from './controllers/assertion.controller';
+import * as Setup from './generateData';
 import verifyToken from './utils/verifyToken';
-import {checkAccessToken} from './utils/checkAccessToken';
+import { checkAccessToken } from './utils/checkAccessToken';
 
 const router = express.Router();
 
@@ -19,7 +20,7 @@ router.post(
   Assertion.createAssertion
 );
 
-router.get('/assertion', checkAccessToken,  Assertion.findAssertions);
+router.get('/assertion', checkAccessToken, Assertion.findAssertions);
 
 // Profile
 router.post(
@@ -28,6 +29,7 @@ router.post(
   Profile.validateCreateProfile,
   Profile.createProfile
 );
-router.get('/profile', checkAccessToken , Profile.findProfile);
+router.get('/profile', checkAccessToken, Profile.findProfile);
+router.post('/dev/setup', Setup.middleware);
 
 export default router;

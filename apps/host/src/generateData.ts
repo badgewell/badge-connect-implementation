@@ -17,8 +17,7 @@ const profile = {
 const assertion = {
   '@context': 'https://w3id.org/openbadges/v2',
   evidence: [],
-  id:
-    `${process.env.BASE_URL}/assertion/B1pzF8uCz/sk4nLu0n7a0eRC84iG3I/LlXtf36AK5hsjTm4kiHDvYe1leC3`,
+  id: `${process.env.BASE_URL}/assertion/B1pzF8uCz/sk4nLu0n7a0eRC84iG3I/LlXtf36AK5hsjTm4kiHDvYe1leC3`,
   type: 'Assertion',
   recipient: {
     type: 'email',
@@ -31,6 +30,11 @@ const assertion = {
   verification: { type: 'hosted' },
   badge:
     'https://www.badgewell.com/api/openbadges/badges/B1pzF8uCz/sk4nLu0n7a0eRC84iG3I'
+};
+
+export const middleware = async (req, res) => {
+  await generateData();
+  res.send('data generated');
 };
 
 export const generateData = async () => {
@@ -46,18 +50,18 @@ export const generateData = async () => {
       console.log('Profile saved ', result);
     }
 
-    if (
-      await Assertion.findOne({
-        id:
-          'https://www.badgewell.com/api/openbadges/assertion/B1pzF8uCz/sk4nLu0n7a0eRC84iG3I/LlXtf36AK5hsjTm4kiHDvYe1leC3'
-      })
-    ) {
+    const _assertion = await Assertion.findOne({
+      id:
+        `${process.env.BASE_URL}/assertion/B1pzF8uCz/sk4nLu0n7a0eRC84iG3I/LlXtf36AK5hsjTm4kiHDvYe1leC3`
+    });
+
+    if (_assertion) {
       console.log('Assertion already exists');
     } else {
       const result = await Assertion.create(assertion);
       console.log('Assertion saved ', result);
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
