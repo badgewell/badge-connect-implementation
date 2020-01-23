@@ -6,6 +6,7 @@ let client;
 (async () => {
   try {
     client = await MongoClient.connect(process.env.DATABASE_URL, {
+      useNewUrlParser: true,
       useUnifiedTopology: true
     });
   } catch (e) {

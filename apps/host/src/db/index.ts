@@ -3,6 +3,7 @@ mongoose.Promise = global.Promise;
 
 try {
   mongoose.connect(process.env.DATABASE_URL, {
+    useNewUrlParser: true,
     useUnifiedTopology: true
   });
   console.log(
