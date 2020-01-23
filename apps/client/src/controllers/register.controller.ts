@@ -3,7 +3,7 @@ import { Request } from 'express';
 import { Issuer, generators, custom } from 'openid-client';
 
 custom.setHttpOptionsDefaults({
-  timeout: 5000
+  timeout: 5000000
 });
 
 export const register = async (req: Request, res, next) => {
