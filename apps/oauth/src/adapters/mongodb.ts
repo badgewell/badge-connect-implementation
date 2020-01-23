@@ -15,6 +15,7 @@ class MongoAdapter {
       useUnifiedTopology: true
     });
     DB = connection.db(process.env.DATABASE_NAME);
+    console.log('database connected');
   }
   public name: any;
   constructor(name: any) {
