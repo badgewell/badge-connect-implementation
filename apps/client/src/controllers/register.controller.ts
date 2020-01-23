@@ -26,7 +26,9 @@ export const register = async (req: Request, res, next) => {
       saveDB({ code_verifier, code_challenge, state }, 'state')
     ]);
 
-    const redirect_uri = `http://${req.headers.host}/callback/${id}`;
+    const redirect_uri = `${req.secure ? 'https' : 'http'}://${
+      req.headers.host
+    }/callback/${id}`;
 
     // TODO report typing error
     const Client: any = issuer.Client;

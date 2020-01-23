@@ -26,7 +26,7 @@ export const get = async (req: Request & { response: any }, res, next) => {
   }
 
   const items = await Promise.all(
-    clients.map(i => getClient(wellKnownMap, i, uid, req.headers.host))
+    clients.map(i => getClient(wellKnownMap, i, uid, req.headers.host,req))
   );
 
   req.response = { profile, clients: items, assertions };
@@ -42,7 +42,7 @@ export const sendJsonResponse = async (req, res) => {
   return res.json(req.response);
 };
 
-const getClient = async (wellKnownMap, i, uid, host) => {
+const getClient = async (wellKnownMap, i, uid, host,req) => {
   const issuer = new Issuer(wellKnownMap[i._id]);
   const client = new issuer.Client(i);
 
@@ -52,7 +52,7 @@ const getClient = async (wellKnownMap, i, uid, host) => {
   const code_challenge = generators.codeChallenge(code_verifier);
 
   // using the wellKnown ID
-  const redirect_uri = `http://${host}/callback/${i._id}`;
+  const redirect_uri = `${req.secure ? 'https' : 'http'}://${host}/callback/${i._id}`;
 
   // generate the redirect url
   const authUrl = client.authorizationUrl({
