@@ -1,15 +1,19 @@
 import * as faker from 'faker';
-import { Issuer, generators } from 'openid-client';
+import { Issuer, generators, custom } from 'openid-client';
 import { saveDB, getWhere, getOneWhere } from '../utils/mongo';
 import { IProfile } from '../types/profile.type';
 import { Request } from 'express';
 
+custom.setHttpOptionsDefaults({
+  timeout: 500000
+});
+
 // TODO refactor the request into small ones and use es6+ syntax
 // TODO add model for the repsone of profile
-export const get = async (req: Request & {response:any}, res,next) => {
+export const get = async (req: Request & { response: any }, res, next) => {
   const { id: uid } = req.params;
-  const [assertions , profile, clients, wellKnows] = await Promise.all([
-    getWhere({uid: uid} , 'assertions'),
+  const [assertions, profile, clients, wellKnows] = await Promise.all([
+    getWhere({ uid: uid }, 'assertions'),
     getOneWhere({ id: uid }, 'profiles'),
     getWhere({}, 'clients'),
     getWhere({}, 'wellKnows')
@@ -25,25 +29,18 @@ export const get = async (req: Request & {response:any}, res,next) => {
     clients.map(i => getClient(wellKnownMap, i, uid, req.headers.host))
   );
 
-  req.response = { profile, clients: items , assertions }
+  req.response = { profile, clients: items, assertions };
 
-  next()
-
+  next();
 };
 
-export const sendRenderResponse = async (req,res) =>{
+export const sendRenderResponse = async (req, res) => {
+  return res.render('profile', req.response);
+};
 
-  return  res.render('profile', req.response);
-
-
-}
-
-export const sendJsonResponse = async (req,res) =>{
-
+export const sendJsonResponse = async (req, res) => {
   return res.json(req.response);
-
-  
-}
+};
 
 const getClient = async (wellKnownMap, i, uid, host) => {
   const issuer = new Issuer(wellKnownMap[i._id]);
@@ -70,8 +67,8 @@ const getClient = async (wellKnownMap, i, uid, host) => {
   await saveDB({ code_verifier, code_challenge, uid, state }, 'state');
 
   i.authUrl = authUrl;
-  i.name = wellKnownMap[i._id].badgeConnectAPI[0].name
-  return i ;
+  i.name = wellKnownMap[i._id].badgeConnectAPI[0].name;
+  return i;
 };
 export const generate = async (req, res) => {
   try {
