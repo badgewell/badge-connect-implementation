@@ -30,13 +30,15 @@ export const wellKnown = (req: Request, res: Response) => {
     'offline_access'
   ];
   const { host } = req.headers;
-  const { protocol } = req;
+  const { secure } = req;
   res.json({
     badgeConnectAPI: [
       {
         apiBase: API_BASE,
         authorizationUrl: AUTHORIZATION_URL,
-        id: `${protocol}://${host}/.well-known/badgeconnect.json`,
+        id: `${
+          secure ? 'https' : 'http'
+        }://${host}/.well-known/badgeconnect.json`,
         image: LOGO_URL,
         name: NAME,
         privacyPolicyUrl: PRIVACY_POLICY_URL,
@@ -53,8 +55,8 @@ export const wellKnown = (req: Request, res: Response) => {
     token_endpoint: AUTHORIZATION_TOKEN_URL,
     authorization_endpoint: AUTHORIZATION_URL,
     registration_endpoint: REGISTRATION_URL,
-    issuer: `http://${req.headers.host}`,
-    id: `${protocol}://${host}/.well-known/badgeconnect.json`,
+    issuer: `${secure ? 'https' : 'http'}://${host}`,
+    id: `${secure ? 'https' : 'http'}://${host}/.well-known/badgeconnect.json`,
     type: 'Manifest'
   } as IManifestResponse);
 };

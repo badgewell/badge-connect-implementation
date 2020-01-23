@@ -4,6 +4,7 @@ import profile from '../models/profile.model';
 
 export const checkAccessToken = async (req: any, res: Response, next) => {
   try {
+    console.log('checking accesstoken');
     if (!req.headers.accesstoken) {
       res.status(403).send({
         status: {
@@ -13,6 +14,7 @@ export const checkAccessToken = async (req: any, res: Response, next) => {
         }
       });
     } else {
+      console.log('getting the  accesstoken back from the db');
       const accessToken = await access_token.findOne({
         id: req.headers.accesstoken
       });
@@ -26,6 +28,7 @@ export const checkAccessToken = async (req: any, res: Response, next) => {
           }
         });
       } else {
+        console.log('getting the uid and profile objects from the database');
         req.uid = accessToken.toJSON().payload.accountId;
         req.profile = await profile.findOne({
           id: `${process.env.BASE_URL}/profiles/${

@@ -70,7 +70,8 @@ const oidc = new Provider(process.env.BASE_URL, {
     end_session: process.env.END_SESSION_ENDPOINT,
     introspection: process.env.INTROSPECTION_ENDPOINT,
     jwks: process.env.JWKS_ENDPOINT,
-    pushed_authorization_request: process.env.PUSHED_AUTHORIZATION_REQUEST_ENDPOINT,
+    pushed_authorization_request:
+      process.env.PUSHED_AUTHORIZATION_REQUEST_ENDPOINT,
     registration: process.env.REGISTRATION_ENDPOINT,
     revocation: process.env.REVOCATION_ENDPOINT,
     token: process.env.TOKEN_ENDPOINT,
@@ -96,7 +97,6 @@ export const startInteraction = async (req, res, next) => {
     const client = await oidc.Client.find(params.client_id);
 
     console.log(params);
-
 
     if (prompt.name === 'login') {
       return res.render('login', {
@@ -127,7 +127,6 @@ export const login = async (req, res, next) => {
     const { uid, prompt, params } = await oidc.interactionDetails(req, res);
     const client = await oidc.Client.find(params.client_id);
     console.log(params);
-
 
     const accountId = await Account.authenticate(
       req.body.email,
@@ -171,6 +170,7 @@ export const confirm = async (req, res, next) => {
         // rejectedClaims: [], // < uncomment and add rejections here
       }
     };
+    console.log('getting into the confirm page');
     await oidc.interactionFinished(req, res, result, {
       mergeWithLastSubmission: true
     });

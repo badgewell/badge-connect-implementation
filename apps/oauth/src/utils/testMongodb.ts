@@ -44,8 +44,8 @@ export const accessTokenInfo = {
 };
 
 // Connection URL
-process.env.MONGODB_DATABASE = process.env.DATABASE_TEST_NAME; // for testing purposes
-const url = process.env.MONGODB_DATABASE;
+process.env.DATABASE_URL = process.env.DATABASE_TEST_NAME; // for testing purposes
+const url = process.env.DATABASE_URL;
 export const connectMongoDB = async () => {
   try {
     const client = await MongoClient.connect(url);

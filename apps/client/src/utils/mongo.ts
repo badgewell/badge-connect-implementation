@@ -1,5 +1,12 @@
-import { client } from '../server';
+import { MongoClient } from 'mongodb';
 const ObjectId = require('mongodb').ObjectID;
+
+export const dbConnection = async () => {
+  const connection = await MongoClient.connect(process.env.DATABASE_URL, {
+    useNewUrlParser: true
+  });
+  return connection.db(process.env.DATABASE_NAME);
+};
 
 export type collection =
   | 'wellKnows'
@@ -19,8 +26,9 @@ export type collection =
  */
 export const saveDB = async (data, collection: collection) => {
   try {
-    const db = client.db(process.env.DATABASE_NAME);
-    return await db.collection(collection).insertOne(data);
+    const db = await dbConnection();
+    const response = await db.collection(collection).insertOne(data);
+    return response;
   } catch (err) {
     // tslint:disable-next-line:no-console
     console.error(err);
@@ -36,8 +44,11 @@ export const saveDB = async (data, collection: collection) => {
  */
 export const getById = async (id, collection: collection) => {
   try {
-    const db = client.db(process.env.DATABASE_NAME);
-    return await db.collection(collection).findOne({ _id: new ObjectId(id) });
+    const db = await dbConnection();
+    const response = await db
+      .collection(collection)
+      .findOne({ _id: new ObjectId(id) });
+    return response;
   } catch (err) {
     // tslint:disable-next-line:no-console
     console.error(err);
@@ -56,8 +67,9 @@ export const getOneWhere = async (
   collection: collection
 ) => {
   try {
-    const db = client.db(process.env.DATABASE_NAME);
-    return await db.collection(collection).findOne(condition);
+    const db = await dbConnection();
+    const response = await db.collection(collection).findOne(condition);
+    return response;
   } catch (err) {
     // tslint:disable-next-line:no-console
     console.error(err);
@@ -74,11 +86,13 @@ export const getOneWhere = async (
  */
 export const getWhere = async (condition: object, collection: collection) => {
   try {
-    const db = client.db(process.env.DATABASE_NAME);
-    return await db
+    const db = await dbConnection();
+    const response = await db
       .collection(collection)
       .find(condition)
       .toArray();
+
+    return response;
   } catch (err) {
     // tslint:disable-next-line:no-console
     console.error(err);
@@ -94,8 +108,10 @@ export const getWhere = async (condition: object, collection: collection) => {
  */
 const remove = async (condition: object, collection: collection) => {
   try {
-    const db = client.db(process.env.DATABASE_NAME);
-    return await db.collection(collection).remove(condition);
+    const db = await dbConnection();
+    const response = await db.collection(collection).remove(condition);
+
+    return response;
   } catch (err) {
     // tslint:disable-next-line:no-console
     console.error(err);
@@ -112,8 +128,11 @@ const remove = async (condition: object, collection: collection) => {
  */
 export const removeById = async (id, collection: collection) => {
   try {
-    const db = client.db(process.env.DATABASE_NAME);
-    return await db.collection(collection).remove({ _id: new ObjectId(id) });
+    const db = await dbConnection();
+    const response = await db
+      .collection(collection)
+      .remove({ _id: new ObjectId(id) });
+    return response;
   } catch (err) {
     // tslint:disable-next-line:no-console
     console.error(err);
