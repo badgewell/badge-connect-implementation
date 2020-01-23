@@ -6,7 +6,9 @@ import app from './app';
 const PORT = process.env.PORT || 5000;
 
 if (process.env.DATABASE_URL) {
-  mongoAdapter.connect();
+  (async () => {
+    await mongoAdapter.connect();
+  })();
 }
 
 const server = app.listen(PORT, () => {
