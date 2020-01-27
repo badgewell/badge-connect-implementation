@@ -20,3 +20,10 @@
 	- Client's url 'http://localhost:9000' with 'https://bw-bc-client-byib6l3wza-uc.a.run.app'
 	- Host's url 'http://localhost:4000' with 'https://bw-bc-host-byib6l3wza-uc.a.run.app'
 	- Oauth's url 'http://localhost:5000' with 'https://bw-bc-oauth-byib6l3wza-uc.a.run.app'
+
+## Example for a profile logged in a relying party and connected to Host (Badgewell in this case)
+
+- profile : https://bw-bc-client-byib6l3wza-uc.a.run.app/profile/1f836836-49bd-446c-ad19-ee3e78cffcd4
+- profile as JSON : https://bw-bc-client-byib6l3wza-uc.a.run.app/profile-json/1f836836-49bd-446c-ad19-ee3e78cffcd4 
+ 
+![Screenshot](img.png)
