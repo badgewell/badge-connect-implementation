@@ -8,7 +8,7 @@ Badge Connect (Open Badges 2.1) Implementation in Nodejs. Badge Connect specfica
 - The user will then redirected by to the recruitment site and see his badges already imported.
 
 ## For more information about getting started 
->[Go to GETTINGSTARTED.md ](GETTING_STARTED.md)
+>[Go to GETTING_STARTED.md ](GETTING_STARTED.md)
 
 
 ## Contents
