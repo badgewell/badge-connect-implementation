@@ -50,12 +50,7 @@ export const wellKnown = (req: Request, res: Response) => {
         scopesOffered: scopes
       }
     ],
-    jwks_uri: JWKS_URL,
-    userinfo_endpoint: USER_INFO_URL,
-    token_endpoint: AUTHORIZATION_TOKEN_URL,
-    authorization_endpoint: AUTHORIZATION_URL,
-    registration_endpoint: REGISTRATION_URL,
-    issuer: `${secure ? 'https' : 'http'}://${host}`,
+    jwks_uri: JWKS_URL, // TODO remove the jwks setting
     id: `${secure ? 'https' : 'http'}://${host}/.well-known/badgeconnect.json`,
     type: 'Manifest'
   } as IManifestResponse);
