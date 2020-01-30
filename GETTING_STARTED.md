@@ -1,5 +1,6 @@
 ## Getting started locally on your machine
 
+- You need to install nodejs 12+ for the services to work correctly. 
 - Rename all .env.example to .env to use the enviroment variables needed.
 - Change whatever configuration in the .env file to fit your running machine.
 - In each of client , host and oauth application, run 'npm install'
