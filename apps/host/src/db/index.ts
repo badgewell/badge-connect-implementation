@@ -8,7 +8,7 @@ try {
   });
   console.log(
     'Success connecting to mongodb server...',
-    process.env.DATABASE_URL + '/' + process.env.DATABASE_NAME
+    process.env.DATABASE_URL
   );
 } catch (error) {
   console.log(error);

@@ -78,7 +78,7 @@ export const getAssertions = async (req: any, res: any, next) => {
 
     const response = await fetch(`${req.apiBase}/assertion?limit=11&offset=0`, {
       method: 'GET',
-      headers: { accesstoken: req.tokenSet.access_token }
+      headers: { access_token: req.tokenSet.access_token }
     });
 
     const data = await response.json();

@@ -5,7 +5,7 @@ import profile from '../models/profile.model';
 export const checkAccessToken = async (req: any, res: Response, next) => {
   try {
     console.log('checking accesstoken');
-    if (!req.headers.accesstoken) {
+    if (!req.headers.access_token) {
       res.status(403).send({
         status: {
           error: 'Header must be provided',
@@ -16,7 +16,7 @@ export const checkAccessToken = async (req: any, res: Response, next) => {
     } else {
       console.log('getting the  accesstoken back from the db');
       const accessToken = await access_token.findOne({
-        id: req.headers.accesstoken
+        id: req.headers.access_token
       });
 
       if (!accessToken) {
