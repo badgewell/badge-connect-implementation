@@ -51,12 +51,12 @@ export const callback = async (req: any, res: Response, next) => {
 
       console.log('getting user info');
       // get the user profile
-      const userinfo = await client.userinfo(tokenSet);
+      // const userinfo = await client.userinfo(tokenSet);
 
       console.log('adding the hostProfiles and accessTokens to the database');
 
       await Promise.all([
-        saveDB({ ...userinfo, uid, clientInternalId: id }, 'hostProfiles'),
+        // saveDB({ ...userinfo, uid, clientInternalId: id }, 'hostProfiles'),
         saveDB({ ...tokenSet, uid, clientInternalId: id }, 'accessTokens')
       ]);
 

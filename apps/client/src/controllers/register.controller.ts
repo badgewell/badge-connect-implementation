@@ -23,15 +23,11 @@ export const register = async (req: Request, res, next) => {
     // console.log(issuer);
 
     // binding the API
-    issuer.jwks_uri = issuer.badgeConnectAPI[0].jwks_uri;
-    issuer.userinfo_endpoint = issuer.badgeConnectAPI[0].userinfo_endpoint;
+    // issuer.jwks_uri = issuer.badgeConnectAPI[0].tokenUrl;
     issuer.token_endpoint = issuer.badgeConnectAPI[0].tokenUrl;
-    issuer.authorization_endpoint =
-      issuer.badgeConnectAPI[0].authorizationUrl;
-    issuer.registration_endpoint =
-      issuer.badgeConnectAPI[0].registrationUrl;
+    issuer.authorization_endpoint = issuer.badgeConnectAPI[0].authorizationUrl;
+    issuer.registration_endpoint = issuer.badgeConnectAPI[0].registrationUrl;
     issuer.issuer = issuer.badgeConnectAPI[0].apiBase;
-    
 
     // generate the state and internal id for the host
     const [{ insertedId: id }] = await Promise.all([
@@ -46,12 +42,15 @@ export const register = async (req: Request, res, next) => {
     // TODO report typing error
     const Client: any = issuer.Client;
 
+    console.log(issuer.metadata);
+
     // register the client
     const client = await Client.register({
       ...issuer.metadata,
-      redirect_uris: [redirect_uri],
-      application_type: 'web',
-      token_endpoint_auth_method: 'client_secret_basic'
+      redirect_uris: [redirect_uri]
+
+      // application_type: 'web',
+      // token_endpoint_auth_method: 'client_secret_basic'
     });
 
     Promise.all([saveDB({ ...client, _id: id }, 'clients')]);

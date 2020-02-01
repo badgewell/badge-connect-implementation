@@ -16,7 +16,7 @@ assert.equal(
 const oidc = new Provider(process.env.BASE_URL, {
   adapter: MongoAdapter, // the adapter to use later on ,
   clientDefaults: {
-    grant_types: ['authorization_code', 'refresh_token'],
+    grant_types: ['authorization_code'], // , 'refresh_token'
     response_types: ['code'],
     token_endpoint_auth_method: 'client_secret_basic'
   },
@@ -44,11 +44,11 @@ const oidc = new Provider(process.env.BASE_URL, {
   scopes: [
     'openid',
     'profile',
-    'https://purl.imsglobal.org/spec/ob/v2p1/scope/assertion.readonly',
-    'https://purl.imsglobal.org/spec/ob/v2p1/scope/assertion.create',
-    'https://purl.imsglobal.org/spec/ob/v2p1/scope/profile.readonly',
-    'https://purl.imsglobal.org/spec/ob/v2p1/scope/profile.update',
-    'offline_access'
+    'https://purl.imsglobal.org/spec/ob/v2p1/scope/assertion.readonly'
+    // 'https://purl.imsglobal.org/spec/ob/v2p1/scope/assertion.create',
+    // 'https://purl.imsglobal.org/spec/ob/v2p1/scope/profile.readonly',
+    // 'https://purl.imsglobal.org/spec/ob/v2p1/scope/profile.update',
+    // 'offline_access'
   ],
 
   // let's tell oidc-provider where our own interactions will be
