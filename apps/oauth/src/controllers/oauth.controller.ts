@@ -76,6 +76,9 @@ const oidc = new Provider(process.env.BASE_URL, {
     revocation: process.env.REVOCATION_ENDPOINT,
     token: process.env.TOKEN_ENDPOINT,
     userinfo: process.env.USER_INFO_ENDPOINT
+  },
+  extraClientMetadata:{
+    properties:['software_id' , 'software_version']
   }
 });
 

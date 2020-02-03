@@ -26,7 +26,7 @@ export const register = async (req: Request, res, next) => {
     issuer.authorization_endpoint = issuer.badgeConnectAPI[0].authorizationUrl;
     issuer.registration_endpoint = issuer.badgeConnectAPI[0].registrationUrl;
     issuer.issuer = issuer.badgeConnectAPI[0].apiBase;
-
+    
     // generate the state and internal id for the host
     const [{ insertedId: id }] = await Promise.all([
       saveDB(issuer, 'wellKnows'),
@@ -39,13 +39,12 @@ export const register = async (req: Request, res, next) => {
 
     // TODO report typing error
     const Client: any = issuer.Client;
-
-    console.log(issuer.metadata);
-
     // register the client
     const client = await Client.register({
       ...issuer.metadata,
-      redirect_uris: [redirect_uri]
+      redirect_uris: [redirect_uri],
+      software_id:process.env.SOFTWARE_ID,
+      software_version:process.env.SOFTWARE_VERSION
 
       // application_type: 'web',
       // token_endpoint_auth_method: 'client_secret_basic'
