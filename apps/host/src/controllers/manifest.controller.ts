@@ -51,6 +51,7 @@ export const wellKnown = (req: Request, res: Response) => {
       }
     ],
     id: `${secure ? 'https' : 'http'}://${host}/.well-known/badgeconnect.json`,
+    '@context': 'https://purl.imsglobal.org/spec/ob/v2p1/ob_v2p1.jsonld',
     type: 'Manifest'
   } as IManifestResponse);
 };
