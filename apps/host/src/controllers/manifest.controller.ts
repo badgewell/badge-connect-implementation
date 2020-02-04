@@ -1,8 +1,6 @@
 import { Request, Response } from 'express';
 import { IManifestResponse, scope } from '../types/manifest.type';
 
-// TODO Add an API for each end point
-
 // TODO Add default values for environment variables
 
 const {
@@ -14,9 +12,7 @@ const {
   REGISTRATION_URL,
   TERMS_OF_SERVICE_URL,
   AUTHORIZATION_TOKEN_URL,
-  BADGE_CONNECT_VERSION,
-  JWKS_URL,
-  USER_INFO_URL
+  BADGE_CONNECT_VERSION
 } = process.env;
 
 export const wellKnown = (req: Request, res: Response) => {
