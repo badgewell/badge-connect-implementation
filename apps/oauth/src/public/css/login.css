@@ -58,6 +58,17 @@ body {
   font-size: 14px;
 }
 
+.login-container > .form-group > label > div {
+  color: #414042;
+  font-size: 14px;
+}
+
+.login-container > .form-group > label > div > span {
+  color: #414042;
+  font-size: 13px;
+  font-style: italic;
+}
+
 .login-container > .form-group > label > input {
   background: #f1f2f2;
   border: none;

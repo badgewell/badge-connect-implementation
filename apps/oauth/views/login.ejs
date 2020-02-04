@@ -42,13 +42,34 @@
       <h3 class="header">Login with</h3>
       <div class="form-group">
         <label for="email">
-          Email
-          <input required type="email" name="email" placeholder="Enter an email" <% if (!params.login_hint) { %>autofocus="on"<% } else { %> value="<%= params.login_hint %>" <% } %>>
+          <div>Email <span> - use foo@example.com</span></div>
+          <input
+            required
+            type="email"
+            name="email"
+            placeholder="Enter an email"
+            <%
+            if
+            (!params.login_hint)
+            {
+            %
+          />autofocus="on"<% } else { %> value="<%= params.login_hint %>" <% }
+          %>>
         </label>
         <br />
         <label for="password">
-          Password
-          <input required type="password" name="password" placeholder="and password" <% if (params.login_hint) { %>autofocus="on"<% } %>>
+          <div>Password <span> - use foo@example.com</span></div>
+          <input
+            required
+            type="password"
+            name="password"
+            placeholder="and password"
+            <%
+            if
+            (params.login_hint)
+            {
+            %
+          />autofocus="on"<% } %>>
         </label>
         <button type="submit">Login</button>
       </div>
