@@ -5,7 +5,10 @@ import profile from '../models/profile.model';
 export const checkAccessToken = async (req: any, res: Response, next) => {
   try {
     console.log('checking accesstoken');
-    if (!req.headers.access_token) {
+
+     const authHeader = req.headers.Authorization || req.headers.access_token || req.headers.accessToken
+
+    if (!authHeader) {
       res.status(403).send({
         status: {
           error: 'Header must be provided',
@@ -14,9 +17,10 @@ export const checkAccessToken = async (req: any, res: Response, next) => {
         }
       });
     } else {
+      const token = authHeader.split(' ')[1]
       console.log('getting the  accesstoken back from the db');
       const accessToken = await access_token.findOne({
-        id: req.headers.access_token
+        id: token
       });
 
       if (!accessToken) {
