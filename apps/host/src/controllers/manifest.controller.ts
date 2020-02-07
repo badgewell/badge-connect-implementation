@@ -16,13 +16,9 @@ const {
 } = process.env;
 
 export const wellKnown = (req: Request, res: Response) => {
-  //TODO enable/remove the commented scopes in the future
   const scopes: scope[] = [
-    'https://purl.imsglobal.org/spec/ob/v2p1/scope/assertion.readonly'
-    // 'https://purl.imsglobal.org/spec/ob/v2p1/scope/assertion.create',
-    // 'https://purl.imsglobal.org/spec/ob/v2p1/scope/profile.readonly',
-    // 'https://purl.imsglobal.org/spec/ob/v2p1/scope/profile.update',
-    // 'offline_access'
+    'https://purl.imsglobal.org/spec/ob/v2p1/scope/assertion.readonly',
+    'offline_access'
   ];
   const { host } = req.headers;
   const { secure } = req;
