@@ -76,12 +76,17 @@ export const getAssertions = async (req: any, res: any, next) => {
   try {
     console.log('getting initial assertions');
 
-    const response = await fetch(`${req.apiBase}/assertion?limit=11&offset=0`, {
-      method: 'GET',
-      headers: { Authorization: 'Bearer ' + req.tokenSet.access_token }
-    });
+    const response = await fetch(
+      `${req.apiBase}/assertions?limit=11&offset=0`,
+      {
+        method: 'GET',
+        headers: { Authorization: 'Bearer ' + req.tokenSet.access_token }
+      }
+    );
 
     const data = await response.json();
+
+    console.log('assertions response', data);
 
     // TODO loop and get all the assertions
     console.log('saving the assertions into the database');
