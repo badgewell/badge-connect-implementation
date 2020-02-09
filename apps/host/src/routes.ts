@@ -14,13 +14,13 @@ router.get('/.well-known/badgeconnect.json', Manifest.wellKnown);
 
 // Assertion
 router.post(
-  '/assertion',
+  '/assertions',
   verifyToken,
   Assertion.validateCreateAssertion,
   Assertion.createAssertion
 );
 
-router.get('/assertion', checkAccessToken, Assertion.findAssertions);
+router.get('/assertions', checkAccessToken, Assertion.findAssertions);
 
 // Profile
 router.post(
