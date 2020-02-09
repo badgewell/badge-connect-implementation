@@ -11,6 +11,7 @@ export const register = async (req: Request, res, next) => {
 
   try {
     const { url } = req.query;
+    console.log('the wellknown url is ', url)
 
     // generate the code challenge
     const code_verifier = generators.codeVerifier();
