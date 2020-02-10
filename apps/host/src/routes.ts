@@ -22,6 +22,8 @@ router.post(
 
 router.get('/assertions', checkAccessToken, Assertion.findAssertions);
 
+router.get('/assertion/:orgId/:badgeId/:uid', Assertion.getSingleAssertion);
+
 // Profile
 router.post(
   '/profile',
