@@ -303,3 +303,21 @@ export async function findAssertions(req: any, res: Response) {
     });
   }
 }
+
+export const getSingleAssertion = async (req, res) => {
+  try {
+    const { orgId, badgeId, uid } = req.params;
+    const assertions = await Assertion.find(
+      {
+        id: `${process.env.BASE_URL}/assertion/${orgId}/${badgeId}/${uid}`
+      },
+      '-_id -__v -createdAt -updatedAt'
+    ).limit(1);
+
+    const response = assertions[0];
+
+    res.json(response);
+  } catch (error) {
+    res.status(404).send('item not found');
+  }
+};
