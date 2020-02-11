@@ -75,7 +75,15 @@ const oidc = new Provider(process.env.BASE_URL, {
     userinfo: process.env.USER_INFO_ENDPOINT
   },
   extraClientMetadata: {
-    properties: ['software_id', 'software_version']
+    properties: [
+      'software_id',
+      'software_version',
+      'tos_uri',
+      'policy_uri',
+      'logo_uri',
+      'client_uri',
+      'client_name'
+    ]
   }
 });
 

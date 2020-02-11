@@ -44,7 +44,12 @@ export const register = async (req: Request, res, next) => {
       ...issuer.metadata,
       redirect_uris: [redirect_uri],
       software_id:process.env.SOFTWARE_ID,
-      software_version:process.env.SOFTWARE_VERSION
+      software_version:process.env.SOFTWARE_VERSION,
+      tos_uri:process.env.TOS_URI,
+      policy_uri:process.env.POLICY_URI,
+      logo_uri:process.env.LOGO_URI,
+      client_uri:process.env.CLIENT_URI,
+      client_name:process.env.CLIENT_NAME
 
       // application_type: 'web',
       // token_endpoint_auth_method: 'client_secret_basic'
