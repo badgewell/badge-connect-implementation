@@ -117,6 +117,8 @@ export const startInteraction = async (req, res, next) => {
       });
     }
 
+    console.log('Client :: ', JSON.stringify(client, null, 2));
+
     return res.render('interaction', {
       client,
       details: prompt.details,
