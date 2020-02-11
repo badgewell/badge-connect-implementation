@@ -4,9 +4,9 @@ import profile from '../models/profile.model';
 
 export const checkAccessToken = async (req: any, res: Response, next) => {
   try {
-    console.log('checking accesstoken');
+    console.log('checking access token');
 
-    const authHeader = req.headers.authorization || req.headers.access_token || req.headers.accessToken
+    const authHeader = req.headers.authorization;
 
     if (!authHeader) {
       res.status(403).send({
@@ -18,7 +18,7 @@ export const checkAccessToken = async (req: any, res: Response, next) => {
       });
     } else {
       const token = authHeader.split(' ')[1];
-      console.log('getting the  accesstoken back from the db');
+      console.log('getting the  access token back from the db');
       const accessToken = await access_token.findOne({
         id: token
       });
