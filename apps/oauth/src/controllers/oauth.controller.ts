@@ -16,7 +16,7 @@ assert.equal(
 const oidc = new Provider(process.env.BASE_URL, {
   adapter: MongoAdapter, // the adapter to use later on ,
   clientDefaults: {
-    grant_types: ['authorization_code', 'refresh_token'],
+    grant_types: ['authorization_code', 'refresh_token'], // , 'refresh_token'
     response_types: ['code'],
     token_endpoint_auth_method: 'client_secret_basic'
   },
@@ -45,9 +45,6 @@ const oidc = new Provider(process.env.BASE_URL, {
     'openid',
     'profile',
     'https://purl.imsglobal.org/spec/ob/v2p1/scope/assertion.readonly',
-    'https://purl.imsglobal.org/spec/ob/v2p1/scope/assertion.create',
-    'https://purl.imsglobal.org/spec/ob/v2p1/scope/profile.readonly',
-    'https://purl.imsglobal.org/spec/ob/v2p1/scope/profile.update',
     'offline_access'
   ],
 
@@ -70,11 +67,15 @@ const oidc = new Provider(process.env.BASE_URL, {
     end_session: process.env.END_SESSION_ENDPOINT,
     introspection: process.env.INTROSPECTION_ENDPOINT,
     jwks: process.env.JWKS_ENDPOINT,
-    pushed_authorization_request: process.env.PUSHED_AUTHORIZATION_REQUEST_ENDPOINT,
+    pushed_authorization_request:
+      process.env.PUSHED_AUTHORIZATION_REQUEST_ENDPOINT,
     registration: process.env.REGISTRATION_ENDPOINT,
     revocation: process.env.REVOCATION_ENDPOINT,
     token: process.env.TOKEN_ENDPOINT,
     userinfo: process.env.USER_INFO_ENDPOINT
+  },
+  extraClientMetadata: {
+    properties: ['software_id', 'software_version']
   }
 });
 
@@ -96,7 +97,6 @@ export const startInteraction = async (req, res, next) => {
     const client = await oidc.Client.find(params.client_id);
 
     console.log(params);
-
 
     if (prompt.name === 'login') {
       return res.render('login', {
@@ -127,7 +127,6 @@ export const login = async (req, res, next) => {
     const { uid, prompt, params } = await oidc.interactionDetails(req, res);
     const client = await oidc.Client.find(params.client_id);
     console.log(params);
-
 
     const accountId = await Account.authenticate(
       req.body.email,
@@ -171,6 +170,7 @@ export const confirm = async (req, res, next) => {
         // rejectedClaims: [], // < uncomment and add rejections here
       }
     };
+    console.log('getting into the confirm page');
     await oidc.interactionFinished(req, res, result, {
       mergeWithLastSubmission: true
     });

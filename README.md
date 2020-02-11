@@ -7,6 +7,9 @@ Badge Connect (Open Badges 2.1) Implementation in Nodejs. Badge Connect specfica
 - The user will be asked to log in into the badging platfrom and authrize the recruitment site.
 - The user will then redirected by to the recruitment site and see his badges already imported.
 
+## For more information about getting started 
+>[Go to GETTING_STARTED.md ](GETTING_STARTED.md)
+
 
 ## Contents
 > This Repository will include an NPM packge and examples that demonstrates Badge Connect coming stanadrd.

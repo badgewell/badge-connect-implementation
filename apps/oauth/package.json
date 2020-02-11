@@ -1,10 +1,11 @@
 {
   "name": "@badgewell/badgeconnect-oauth",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "description": "This is a nodejs implementation of oauth 2.0 server for use for badgeconnect requires nodejs over 12.0.0",
   "main": "server.js",
   "scripts": {
-    "build": "tsc",
+    "build": "npm run build-ts && npm run copy-static-assets ",
+    "build-ts": "tsc",
     "generate-keys": "ts-node generate-keys ",
     "start": "node dist/server.js",
     "start-debug": "DEBUG=oidc-provider:* node dist/server.js ",
@@ -43,7 +44,7 @@
     "lowdb": "^1.0.0",
     "mongodb": "^3.3.4",
     "mongoose": "^5.7.7",
-    "oidc-provider": "^6.12.13",
+    "oidc-provider": "^6.20.0",
     "shelljs": "^0.8.3",
     "typescript-collections": "^1.3.3"
   },

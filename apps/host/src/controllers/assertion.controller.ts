@@ -258,16 +258,17 @@ export async function findAssertions(req: any, res: Response) {
       query.status = status;
     }
 
+    console.log('getting the assertions back');
     // match on recipient.identity
     const assertions = await Assertion.find(
-      {'recipient.identity': 'sha256$' + identity.hash},
+      { 'recipient.identity': 'sha256$' + identity.hash },
       '-_id -__v -createdAt -updatedAt'
     )
       .sort({ createdAt: -1 })
       .limit(limit)
       .skip(offset);
 
-
+    console.log('prepare the request pagination data');
     const assertionsCount = await Assertion.countDocuments();
     const appUrl =
       req.protocol +
@@ -287,8 +288,8 @@ export async function findAssertions(req: any, res: Response) {
     }
 
     if (offset > 0 && offset <= assertionsCount) {
-      const offsetValue =  offset == 1 ? 0 : + (offset - limit);
-      response.prevLink = appUrl + '?limit=' + limit + '&offset=' + offsetValue
+      const offsetValue = offset == 1 ? 0 : +(offset - limit);
+      response.prevLink = appUrl + '?limit=' + limit + '&offset=' + offsetValue;
     }
 
     return res.status(200).send(response);
@@ -302,3 +303,21 @@ export async function findAssertions(req: any, res: Response) {
     });
   }
 }
+
+export const getSingleAssertion = async (req, res) => {
+  try {
+    const { orgId, badgeId, uid } = req.params;
+    const assertions = await Assertion.find(
+      {
+        id: `${process.env.BASE_URL}/assertion/${orgId}/${badgeId}/${uid}`
+      },
+      '-_id -__v -createdAt -updatedAt'
+    ).limit(1);
+
+    const response = assertions[0];
+
+    res.json(response);
+  } catch (error) {
+    res.status(404).send('item not found');
+  }
+};

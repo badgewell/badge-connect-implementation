@@ -10,10 +10,12 @@ class MongoAdapter {
   // This is not part of the required or supported API, all initialization should happen before
   // you pass the adapter to `new Provider`
   public static async connect() {
-    const connection = await MongoClient.connect(process.env.MONGODB_DATABASE, {
-      useNewUrlParser: true
+    const connection = await MongoClient.connect(process.env.DATABASE_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
     });
     DB = connection.db(process.env.DATABASE_NAME);
+    console.log('database connected');
   }
   public name: any;
   constructor(name: any) {

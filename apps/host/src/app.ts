@@ -23,6 +23,7 @@ class App {
   private config(): void {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
+    this.app.enable('trust proxy');
     this.app.use((req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
       res.header(

@@ -23,6 +23,9 @@ class App {
       express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 })
     );
 
+    this.app.enable('trust proxy');
+
+
     this.app.use((req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
       res.header(
