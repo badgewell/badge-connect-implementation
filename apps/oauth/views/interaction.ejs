@@ -74,7 +74,7 @@
     <div class="authorization">
       <div class="access">
         <img src="/images/Badgewell _Logo Horizontal.svg" alt="" srcset="" />
-        <h3>Authorize Jobber to access your profile?</h3>
+        <h3>Authorize <%= client.clientName %> to access your profile?</h3>
         <div class="actions">
           <form
             autocomplete="off"
@@ -142,13 +142,13 @@
         </div>
       </div>
       <div class="brand">
-        <img src="/images/Badgewell _Logo Horizontal.svg" alt="" srcset="" />
-        <p>
+        <img src="<%= client.logoUri %>" alt="" srcset="" />
+        <!-- <p>
           we are a platform that helps people collect a digital version of their
           certificates. And provide organization more insights about the
           receivers of the certificates for better targeting.
-        </p>
-        <a href="https://www.badgewell.com">www.badgewell.com</a>
+        </p> -->
+        <a href="<%= client.clientUri %>"><%= client.clientUri %></a>
       </div>
     </div>
   </body>
