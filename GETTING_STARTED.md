@@ -24,7 +24,7 @@
 
 ## Example for a profile logged in a relying party and connected to Host (Badgewell in this case)
 
-- profile : https://bw-bc-client-byib6l3wza-uc.a.run.app/profile/1f836836-49bd-446c-ad19-ee3e78cffcd4
-- profile as JSON : https://bw-bc-client-byib6l3wza-uc.a.run.app/profile-json/1f836836-49bd-446c-ad19-ee3e78cffcd4 
+- profile : https://bw-bc-client-byib6l3wza-uc.a.run.app/profile/59b63e94-5116-4a50-8255-a83930607577
+- profile as JSON : https://bw-bc-client-byib6l3wza-uc.a.run.app/profile-json/59b63e94-5116-4a50-8255-a83930607577
  
 ![Screenshot](img.png)
