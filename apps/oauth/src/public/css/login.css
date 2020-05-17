@@ -95,3 +95,26 @@ body {
   justify-content: center;
   font-size: 15px;
 }
+
+/* New wrapper login page */
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.wrapper > img {
+  width: 200px;
+  margin-bottom: 50px;
+}
+
+.wrapper > h3 {
+  color: #414042;
+  font-size: 17px;
+  font-weight: unset;
+  font-family: badgewell_medium;
+  margin-bottom: 50px;
+}
