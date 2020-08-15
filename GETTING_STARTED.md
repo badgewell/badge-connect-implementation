@@ -16,15 +16,5 @@
 - use /GET 'http://localhost:9000/profile/:id' in the browser , select from the dropdown list and click add.
 - use 'foo@example' and any password as email and password required, then follow the flow shown.
 
-## Deployed Version
-- To use the deployed version , all you have to do is to replace all :
-	- Client's url 'http://localhost:9000' with 'https://bw-bc-client-byib6l3wza-uc.a.run.app'
-	- Host's url 'http://localhost:4000' with 'https://bw-bc-host-byib6l3wza-uc.a.run.app'
-	- Oauth's url 'http://localhost:5000' with 'https://bw-bc-oauth-byib6l3wza-uc.a.run.app'
 
-## Example for a profile logged in a relying party and connected to Host (Badgewell in this case)
-
-- profile : https://bw-bc-client-byib6l3wza-uc.a.run.app/profile/59b63e94-5116-4a50-8255-a83930607577
-- profile as JSON : https://bw-bc-client-byib6l3wza-uc.a.run.app/profile-json/59b63e94-5116-4a50-8255-a83930607577
- 
 ![Screenshot](img.png)
