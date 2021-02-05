@@ -11,66 +11,9 @@
     <title>Sign in</title>
   </head>
   <body>
-    <!-- <div class="login-card">
-      <h1><%= title %></h1>
-      <% if (flash) { %>
-        <p><%= flash %></p>
-      <% } %>
-      <form autocomplete="off" action="/interaction/<%= uid %>/login" method="post">
-        <input required type="email" name="email" placeholder="Enter an email" <% if (!params.login_hint) { %>autofocus="on"<% } else { %> value="<%= params.login_hint %>" <% } %>>
-        <input required type="password" name="password" placeholder="and password" <% if (params.login_hint) { %>autofocus="on"<% } %>>
-
-        <button type="submit" class="login login-submit">Sign-in</button>
-      </form>
-      <div class="login-help">
-        <a href="/interaction/<%= uid %>/abort">[ Cancel ]</a>
-        <% if (client.tosUri) { %>
-          <a href="<%= client.tosUri %>">[ Terms of Service ]</a>
-        <% } %>
-        <% if (client.policyUri) { %>
-          <a href="<%= client.policyUri %>">[ Privacy Policy ]</a>
-        <% } %>
-      </div>
-    </div> -->
-    <form
-      class="login-container"
-      autocomplete="off"
-      action="/interaction/<%= uid %>/login"
-      method="post"
-    >
+    <div class="wrapper">
       <img src="/images/Badgewell _Logo Horizontal.svg" />
-      <h3 class="header">Login with</h3>
-      <div class="form-group">
-        <label for="email">
-          <div>Email <span> - use foo@example.com</span></div>
-          <input
-            required
-            type="email"
-            name="email"
-            placeholder="Enter an email"
-            <%
-            if
-            (!params.login_hint)
-            {
-            %>autofocus="on"<% } else { %> value="<%= params.login_hint %>" <% }
-          %>>
-        </label>
-        <br />
-        <label for="password">
-          <div>Password <span> - use foo@example.com</span></div>
-          <input
-            required
-            type="password"
-            name="password"
-            placeholder="and password"
-            <%
-            if
-            (params.login_hint)
-            {
-            %>autofocus="on"<% } %>>
-        </label>
-        <button type="submit">Login</button>
-      </div>
-    </form>
+      <h3 class="header">Loading.....</h3>
+    </div>
   </body>
 </html>
