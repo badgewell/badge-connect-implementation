@@ -40,6 +40,6 @@
     "mongodb": "^3.3.5",
     "node-fetch": "^2.6.0",
     "openid-client": "^3.12.2",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.5"
   }
 }
