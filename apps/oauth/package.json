@@ -38,7 +38,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "firebase-admin": "^8.9.1",
-    "jose": "^1.10.1",
+    "jose": "^1.28.2",
     "jsonfile": "^5.0.0",
     "lodash": "^4.17.19",
     "lowdb": "^1.0.0",
