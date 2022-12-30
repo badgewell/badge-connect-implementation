@@ -27,7 +27,7 @@
     "@types/shelljs": "^0.8.6",
     "chai": "^4.2.0",
     "concurrently": "^5.0.0",
-    "mocha": "^6.2.2",
+    "mocha": "^10.2.0",
     "nodemon": "^1.19.4",
     "ts-mocha": "^6.0.0",
     "tslint": "^5.20.0",
